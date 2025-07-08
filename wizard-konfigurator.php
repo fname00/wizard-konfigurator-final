@@ -24,6 +24,17 @@ add_action('admin_init', function() {
     add_settings_field('kc_field_feat', 'Funkcje/Integracje', 'kc_render_features', 'wizard-konfigurator', 'kc_sec');
 });
 
+// Admin scripts for dynamic fields and media uploader
+add_action('admin_enqueue_scripts', function($hook){
+    if($hook !== 'toplevel_page_wizard-konfigurator') return;
+    wp_enqueue_media();
+    wp_enqueue_script('kc-admin-js', plugins_url('assets/js/admin.js', __FILE__), ['jquery'], null, true);
+    wp_localize_script('kc-admin-js', 'kcAdminData', [
+        'branze' => get_option('konf_branze'),
+        'cele'   => get_option('konf_cele')
+    ]);
+});
+
 // Render functions with is_array checks
 function kc_render_branze() {
     $items = get_option('konf_branze', []);
