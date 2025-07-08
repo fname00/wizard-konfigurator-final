@@ -1,4 +1,7 @@
 jQuery(function($){
+  function toArray(obj){
+    return Array.isArray(obj) ? obj : Object.values(obj || {});
+  }
   function addBranzaRow(){
     var t = $('#kc_add_branza').prev('table').find('tbody');
     var idx = t.children('tr').length;
@@ -23,7 +26,9 @@ jQuery(function($){
     var t = $('#kc_add_style').prev('table').find('tbody');
     var idx = t.children('tr').length;
     var sel = '<select name="konf_style['+idx+'][branch]">';
-    (kcAdminData.branze||[]).forEach(function(b){ sel+='<option value="'+b.slug+'">'+b.title+'</option>'; });
+    toArray(kcAdminData.branze).forEach(function(b){
+      sel += '<option value="'+b.slug+'">'+b.title+'</option>';
+    });
     sel += '</select>';
     t.append('<tr data-index="'+idx+'">'+
       '<td>'+sel+'</td>'+
@@ -39,7 +44,9 @@ jQuery(function($){
     var t = $('#kc_add_feature').prev('table').find('tbody');
     var idx = t.children('tr').length;
     var cele = '';
-    (kcAdminData.cele||[]).forEach(function(c){ cele += '<label><input type="checkbox" name="konf_features['+idx+'][assigned][]" value="'+c.slug+'"> '+c.title+'</label><br>'; });
+    toArray(kcAdminData.cele).forEach(function(c){
+      cele += '<label><input type="checkbox" name="konf_features['+idx+'][assigned][]" value="'+c.slug+'"> '+c.title+'</label><br>';
+    });
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_features['+idx+'][title]"></td>'+
       '<td><select name="konf_features['+idx+'][type]"><option value="funkcja">Funkcja</option><option value="automatyzacja">Automatyzacja</option><option value="integracja">Integracja</option></select></td>'+
