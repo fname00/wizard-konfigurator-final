@@ -3,7 +3,7 @@ jQuery(function($){
     return Array.isArray(obj) ? obj : Object.values(obj || {});
   }
   function addBranzaRow(){
-    var t = $('#kc_add_branza').prev('table').find('tbody');
+    var t = $('#kc_add_branza').parent().prev('table').find('tbody');
     var idx = t.children('tr').length;
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_branze['+idx+'][title]"></td>'+
@@ -14,7 +14,7 @@ jQuery(function($){
     '</tr>');
   }
   function addCelRow(){
-    var t = $('#kc_add_cele').prev('table').find('tbody');
+    var t = $('#kc_add_cele').parent().prev('table').find('tbody');
     var idx = t.children('tr').length;
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_cele['+idx+'][title]"></td>'+
@@ -23,7 +23,7 @@ jQuery(function($){
     '</tr>');
   }
   function addStyleRow(){
-    var t = $('#kc_add_style').prev('table').find('tbody');
+    var t = $('#kc_add_style').parent().prev('table').find('tbody');
     var idx = t.children('tr').length;
     var sel = '<select name="konf_style['+idx+'][branch]">';
     toArray(kcAdminData.branze).forEach(function(b){
@@ -41,7 +41,7 @@ jQuery(function($){
     '</tr>');
   }
   function addFeatureRow(){
-    var t = $('#kc_add_feature').prev('table').find('tbody');
+    var t = $('#kc_add_feature').parent().prev('table').find('tbody');
     var idx = t.children('tr').length;
     var cele = '';
     toArray(kcAdminData.cele).forEach(function(c){
