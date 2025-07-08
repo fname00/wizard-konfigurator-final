@@ -29,10 +29,14 @@ add_action('admin_enqueue_scripts', function($hook){
     if($hook !== 'toplevel_page_wizard-konfigurator') return;
     wp_enqueue_media();
     wp_enqueue_script('kc-admin-js', plugins_url('assets/js/admin.js', __FILE__), ['jquery'], null, true);
-    wp_localize_script('kc-admin-js', 'kcAdminData', [
-        'branze' => get_option('konf_branze'),
-        'cele'   => get_option('konf_cele')
-    ]);
+    wp_localize_script(
+        'kc-admin-js',
+        'kcAdminData',
+        [
+            'branze' => array_values((array) get_option('konf_branze')),
+            'cele'   => array_values((array) get_option('konf_cele')),
+        ]
+    );
 });
 
 // Render functions with is_array checks
