@@ -164,10 +164,10 @@ add_action('wp_enqueue_scripts', function() {
     wp_localize_script('wizard-js', 'wizardData', [
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('wizard_nonce'),
-        'branże'  => get_option('konf_branze'),
-        'cele'    => get_option('konf_cele'),
-        'style'   => get_option('konf_style'),
-        'features'=> get_option('konf_features')
+        'branże'  => array_values((array) get_option('konf_branze')),
+        'cele'    => array_values((array) get_option('konf_cele')),
+        'style'   => array_values((array) get_option('konf_style')),
+        'features'=> array_values((array) get_option('konf_features'))
     ]);
 });
 add_action('wp_ajax_save_wizard_step', 'kc_save_step');

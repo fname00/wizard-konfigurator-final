@@ -1,4 +1,7 @@
 (function($){
+  function toArray(obj){
+    return Array.isArray(obj)?obj:Object.values(obj||{});
+  }
   var postId = 0;
   var styleSel = [];
   function save(meta, cb){
@@ -12,10 +15,10 @@
       else alert('Błąd: '+res.data.message);
     });
   }
-  wizardData['branże'].forEach(function(b){
+  toArray(wizardData['branże']).forEach(function(b){
     $('#branze-list').append('<div class="branża" data-slug="'+b.slug+'">'+b.title+'</div>');
   });
-  wizardData.cele.forEach(function(c){
+  toArray(wizardData.cele).forEach(function(c){
     $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+c.title+'</div>');
   });
   // features will be rendered after selecting a goal
@@ -25,7 +28,7 @@
     var slug=$(this).data('slug');
     styleSel=[];
     $('#style-list').empty();
-    wizardData.style.forEach(function(s){
+    toArray(wizardData.style).forEach(function(s){
       if(s.branch===slug){
         var img=s.icon?'<img src="'+s.icon+'" alt="">':'';
         $('#style-list').append('<div class="style" data-title="'+s.title+'">'+img+'<span>'+s.title+'</span></div>');
@@ -65,7 +68,7 @@
     $(this).addClass('active');
     var slug=$(this).data('slug');
     $('#features-list').empty();
-    wizardData.features.forEach(function(f){
+    toArray(wizardData.features).forEach(function(f){
       if(!f.assigned || f.assigned.indexOf(slug)!==-1){
         $('#features-list').append('<label><input type="checkbox" value="'+f.title+'"> '+f.title+'</label><br>');
       }
@@ -88,5 +91,4 @@
     if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
     save({budget:$('#budget').val(), email: email}, function(){
       alert('Wycena wysłana!'); location.reload();
-    });
-  });})(jQuery);
+    });  });})(jQuery);
