@@ -122,14 +122,7 @@ function kc_render_features() {
 
 // SETTINGS PAGE
 function kc_settings_page() {
-    ?>
-    <div class="wrap">
-        <h1>Wizard Konfigurator — Ustawienia</h1>
-        <form method="post" action="options.php">
-            <?php settings_fields('kc_group'); do_settings_sections('wizard-konfigurator'); submit_button(); ?>
-        </form>
-    </div>
-    <?php
+    include plugin_dir_path(__FILE__) . 'admin/settings-page.php';
 }
 
 // PRESET DATA + reset to arrays if needed
