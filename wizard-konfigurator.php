@@ -53,7 +53,7 @@ function kc_render_branze() {
         echo "<td><a href='#' class='kc_remove_row'>&times;</a></td>";
         echo "</tr>";
     }
-    echo '</tbody></table><p><button id="kc_add_branza" class="button">Dodaj branżę</button></p>';
+    echo '</tbody></table><p><button id="kc_add_branza" class="button" type="button">Dodaj branżę</button></p>';
 }
 
 function kc_render_cele() {
@@ -67,7 +67,7 @@ function kc_render_cele() {
         echo "<td><a href='#' class='kc_remove_row'>&times;</a></td>";
         echo "</tr>";
     }
-    echo '</tbody></table><p><button id="kc_add_cele" class="button">Dodaj cel</button></p>';
+    echo '</tbody></table><p><button id="kc_add_cele" class="button" type="button">Dodaj cel</button></p>';
 }
 
 function kc_render_style() {
@@ -92,7 +92,7 @@ function kc_render_style() {
         echo "<td><a href='#' class='kc_remove_row'>&times;</a></td>";
         echo "</tr>";
     }
-    echo '</tbody></table><p><button id="kc_add_style" class="button">Dodaj styl</button></p>';
+    echo '</tbody></table><p><button id="kc_add_style" class="button" type="button">Dodaj styl</button></p>';
 }
 
 function kc_render_features() {
@@ -117,7 +117,7 @@ function kc_render_features() {
         }
         echo '</td><td><a href="#" class="kc_remove_row">&times;</a></td></tr>';
     }
-    echo '</tbody></table><p><button id="kc_add_feature" class="button">Dodaj pozycję</button></p>';
+    echo '</tbody></table><p><button id="kc_add_feature" class="button" type="button">Dodaj pozycję</button></p>';
 }
 
 // SETTINGS PAGE
