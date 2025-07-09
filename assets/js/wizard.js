@@ -91,6 +91,11 @@
     $('#features-list').fadeIn(200);
   });
   $('#next-2').click(function(){
+    var tel = $('#tel').val().trim();
+    if(!tel){
+      alert('Podaj numer telefonu');
+      return;
+    }
     selectedFeatures = $('#features-list input:checked').map(function(){
       return {title: $(this).val(), price: parseInt($(this).data('price'))||0};
     }).get();
