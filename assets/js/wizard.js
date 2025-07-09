@@ -4,6 +4,7 @@
   }
   var postId = 0;
   var styleSel = [];
+  var styleLimit = 5;
   var selectedFeatures = [];
   var selectedGoals = [];
 
@@ -70,6 +71,8 @@
     });
   }
   var $branchSelect = $('#branch-select');
+  var $styleLimitMsg = $('<div id="style-limit-msg" class="hidden">Możesz wybrać maksymalnie '+styleLimit+' stylów</div>');
+  $('#style-list').after($styleLimitMsg);
   $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
     $branchSelect.append('<option value="'+b.slug+'">'+b.title+'</option>');
@@ -91,6 +94,8 @@
     });
     $('#style-header').fadeIn(200);
     $('#after-style').hide();
+    $('.style').removeClass('disabled');
+    $styleLimitMsg.addClass('hidden');
     $('#next-1').prop('disabled', true).hide();
     updateNext1();
   }
@@ -109,9 +114,20 @@
       $(this).removeClass('active');
       styleSel = styleSel.filter(function(t){ return t!==title; });
     }else{
-      if(styleSel.length>=5) return;
+      if(styleSel.length>=styleLimit){
+        $styleLimitMsg.removeClass('hidden');
+        $('.style').not('.active').addClass('disabled');
+        return;
+      }
       $(this).addClass('active');
       styleSel.push(title);
+    }
+    if(styleSel.length<styleLimit){
+      $('.style').removeClass('disabled');
+      $styleLimitMsg.addClass('hidden');
+    }else{
+      $('.style').not('.active').addClass('disabled');
+      $styleLimitMsg.removeClass('hidden');
     }
     if(styleSel.length>=1){
       $('#after-style').fadeIn(200);
@@ -122,7 +138,10 @@
   });
 
   $('#nip').on('input', updateNext1);
-  $('#rodo').on('change', updateNext1);
+  $('#rodo').on('change', function(){
+    $(this).next('.custom-checkbox').toggleClass('checked', this.checked);
+    updateNext1();
+  });
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
     if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
@@ -205,4 +224,26 @@
       location.reload();
     });
   });
+
+  // phone carousel drag support
+  var $carousel = $('#phone-carousel');
+  if($carousel.length){
+    var dragging = false;
+    var startX = 0;
+    var startScroll = 0;
+    $carousel.on('touchstart mousedown', function(e){
+      dragging = true;
+      startX = e.pageX || e.originalEvent.touches[0].pageX;
+      startScroll = $carousel.scrollLeft();
+    });
+    $carousel.on('touchmove mousemove', function(e){
+      if(!dragging) return;
+      var x = e.pageX || e.originalEvent.touches[0].pageX;
+      $carousel.scrollLeft(startScroll - (x - startX));
+      e.preventDefault();
+    });
+    $(document).on('touchend mouseup touchcancel', function(){
+      dragging = false;
+    });
+  }
 })(jQuery);
