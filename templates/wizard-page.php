@@ -70,6 +70,9 @@
       <h3 class="subheadline">E-mail do przesłania wyceny</h3>
       <input id="email" class="glass-control" placeholder="Twój email">
       <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
+    <h3 class="subheadline">E-mail do przesłania wyceny</h3>
+    <input id="email" class="glass-control" placeholder="Twój email">
+    <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
   </div>
 </div>
 
