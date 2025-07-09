@@ -67,6 +67,9 @@
     <input type="range" id="budget" min="0" max="50000" class="glass-control">
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
+      <h3 class="subheadline">E-mail do przesłania wyceny</h3>
+      <input id="email" class="glass-control" placeholder="Twój email">
+      <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
     <h3 class="subheadline">E-mail do przesłania wyceny</h3>
     <input id="email" class="glass-control" placeholder="Twój email">
     <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
