@@ -23,7 +23,7 @@
       <textarea id="notes" placeholder="Opisz styl jaki Ci się podoba"></textarea>
       <input id="nip" placeholder="NIP firmy">
       <label class="rodo-label"><input type="checkbox" id="rodo"> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
-      <button id="next-1">Dalej</button>
+      <button id="next-1" class="cta-btn">Dalej</button>
     </div>
   </div>
   <div class="step hidden" id="step-2">
@@ -49,7 +49,7 @@
     <input id="tel" placeholder="Telefon">
     <select id="role"><option>Właściciel</option><option>Menedżer</option><option>Pracownik</option></select>
     <label><input type="checkbox" id="whatsapp"> WhatsApp</label>
-    <button id="next-2">Dalej</button>
+    <button id="next-2" class="cta-btn">Dalej</button>
   </div>
   <div class="step hidden" id="step-3">
     <h2>Dopasuj budżet</h2>
@@ -59,7 +59,7 @@
     <div id="summary-list"></div>
     <h3>Email do przesłania wyceny</h3>
     <input id="email" placeholder="Twój email">
-    <button id="finish" disabled>Prześlij wycenę</button>
+    <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
   </div>
 </div>
 
