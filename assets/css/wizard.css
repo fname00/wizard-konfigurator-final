@@ -352,3 +352,20 @@ input::placeholder {
     flex: 1 1 100%;
   }
 }
+.phone-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+}
+.phone-carousel::-webkit-scrollbar { display: none; }
+.phone-carousel .style { flex: 0 0 auto; scroll-snap-align: start; }
+.style { position: relative; }
+.style img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.style.disabled { opacity: 0.5; pointer-events: none; }
+#style-limit-msg {
+  color: var(--accent);
+  text-align: center;
+  margin-top: 10px;
+}
