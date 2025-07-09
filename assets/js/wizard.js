@@ -5,6 +5,32 @@
   var postId = 0;
   var styleSel = [];
   var selectedFeatures = [];
+  var selectedGoals = [];
+
+  function renderFeatures(){
+    $('#features-list').empty();
+    if(!selectedGoals.length){ $('#features-list').hide(); return; }
+    var groups = {funkcja:[],integracja:[],automatyzacja:[]};
+    toArray(wizardData.features).forEach(function(f){
+      if(!f.assigned || selectedGoals.some(function(g){ return f.assigned.indexOf(g)!==-1; })){
+        if(!groups[f.type]) groups[f.type]=[];
+        groups[f.type].push(f);
+      }
+    });
+    ['funkcja','integracja','automatyzacja'].forEach(function(type){
+      var list=groups[type];
+      if(!list||!list.length) return;
+      $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
+      var table=$('<table class="feat-table"><tbody></tbody></table>');
+      list.forEach(function(f){
+        var desc=f.desc||f.description||'';
+        table.append('<tr><td><label><input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> '+f.title+'</label></td><td>'+desc+'</td></tr>');
+      });
+      table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
+      $('#features-list').append(table);
+    });
+    $('#features-list').fadeIn(200);
+  }
   function updateBudgetText(v){
     var text='Budżet: '+v+' zł';
     if(v<10000) text+='\nOgraniczony zakres.'; else text+='\nPełny zakres funkcji.';
@@ -89,30 +115,15 @@
     });
   });
   $('#cele-list').on('click','.cel',function(){
-    $('.cel').removeClass('active');
-    $(this).addClass('active');
     var slug=$(this).data('slug');
-    $('#features-list').empty();
-    var groups={funkcja:[],integracja:[],automatyzacja:[]};
-    toArray(wizardData.features).forEach(function(f){
-      if(!f.assigned || f.assigned.indexOf(slug)!==-1){
-        if(!groups[f.type]) groups[f.type]=[];
-        groups[f.type].push(f);
-      }
-    });
-    ['funkcja','integracja','automatyzacja'].forEach(function(type){
-      var list=groups[type];
-      if(!list||!list.length) return;
-      $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
-      var table=$('<table class="feat-table"><tbody></tbody></table>');
-      list.forEach(function(f){
-        var desc=f.desc||f.description||'';
-        table.append('<tr><td><label><input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> '+f.title+'</label></td><td>'+desc+'</td></tr>');
-      });
-      table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
-      $('#features-list').append(table);
-    });
-    $('#features-list').fadeIn(200);
+    if($(this).hasClass('active')){
+      $(this).removeClass('active');
+      selectedGoals = selectedGoals.filter(function(s){ return s!==slug; });
+    }else{
+      $(this).addClass('active');
+      if(selectedGoals.indexOf(slug)===-1) selectedGoals.push(slug);
+    }
+    renderFeatures();
   });
   $('#next-2').click(function(){
     var tel = $('#tel').val().trim();
@@ -132,7 +143,7 @@
     $('#current-cost').text(cost+' zł');
     $('#budget').val(cost);
     updateBudgetText(cost);
-    save({cel:$('.cel.active').data('slug'), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
+    save({cel:selectedGoals.join(','), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
       $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); setProgress(3); });
     });
   });
@@ -148,5 +159,4 @@
   });
   $('#finish').click(function(){
     var email=$('#email').val();
-    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
-    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
+    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
