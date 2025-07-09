@@ -93,6 +93,7 @@
     $(this).addClass('active');
     var slug=$(this).data('slug');
     $('#features-list').empty();
+    selectedFeatures=[];
     var groups={funkcja:[],integracja:[],automatyzacja:[]};
     toArray(wizardData.features).forEach(function(f){
       if(!f.assigned || f.assigned.indexOf(slug)!==-1){
@@ -104,15 +105,27 @@
       var list=groups[type];
       if(!list||!list.length) return;
       $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
-      var table=$('<table class="feat-table"><tbody></tbody></table>');
+      var cont=$('<div class="tag-container"></div>');
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
-        table.append('<tr><td><label><input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> '+f.title+'</label></td><td>'+desc+'</td></tr>');
+        cont.append('<div class="tag feature-tag" data-price="'+(f.price||0)+'" data-title="'+f.title+'" title="'+desc+'">'+f.title+'</div>');
       });
-      table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
-      $('#features-list').append(table);
+      cont.append('<div class="tag feature-tag" data-price="0" data-title="inne-'+type+'">inne, niestandardowe rozwiązania</div>');
+      $('#features-list').append(cont);
     });
-    $('#features-list').fadeIn(200);
+      $('#features-list').fadeIn(200);
+  });
+  $('#features-list').on('click','.feature-tag',function(){
+    var $t=$(this);
+    var title=$t.data('title');
+    var price=parseInt($t.data('price'))||0;
+    if($t.hasClass('selected')){
+      $t.removeClass('selected');
+      selectedFeatures=selectedFeatures.filter(function(f){return f.title!==title;});
+    }else{
+      $t.addClass('selected');
+      selectedFeatures.push({title:title,price:price});
+    }
   });
   $('#next-2').click(function(){
     var tel = $('#tel').val().trim();
@@ -120,15 +133,15 @@
       alert('Podaj numer telefonu');
       return;
     }
-    selectedFeatures = $('#features-list input:checked').map(function(){
-      return {title: $(this).val(), price: parseInt($(this).data('price'))||0};
-    }).get();
+      selectedFeatures = $('.feature-tag.selected').map(function(){
+        return {title: $(this).data('title'), price: parseInt($(this).data('price'))||0};
+      }).get();
     var feats = selectedFeatures.map(function(f){return f.title;}).join(',');
     var cost = selectedFeatures.reduce(function(s,f){return s+f.price;},0);
-    $('#summary-list').empty();
-    selectedFeatures.forEach(function(f){
-      $('#summary-list').append('<label><input type="checkbox" class="sum-item" data-price="'+f.price+'" checked> '+f.title+' ('+f.price+' zł)</label>');
-    });
+      $('#summary-list').empty();
+      selectedFeatures.forEach(function(f){
+        $('#summary-list').append('<div class="tag summary-item selected" data-price="'+f.price+'">'+f.title+' ('+f.price+' zł)</div>');
+      });
     $('#current-cost').text(cost+' zł');
     $('#budget').val(cost);
     updateBudgetText(cost);
@@ -139,14 +152,14 @@
   $('#budget').on('input change',function(){
     updateBudgetText($(this).val());
   });
-  $('#summary-list').on('change','.sum-item',function(){
+  $('#summary-list').on('click','.summary-item',function(){
+    $(this).toggleClass('selected');
     var total=0;
-    $('#summary-list .sum-item:checked').each(function(){ total+=parseInt($(this).data('price')); });
+    $('#summary-list .summary-item.selected').each(function(){ total+=parseInt($(this).data('price')); });
     $('#current-cost').text(total+' zł');
     $('#budget').val(total);
     updateBudgetText(total);
   });
   $('#finish').click(function(){
     var email=$('#email').val();
-    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
-    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
+    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
