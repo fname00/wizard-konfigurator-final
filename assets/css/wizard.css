@@ -382,14 +382,32 @@ input::placeholder {
 .phone-carousel {
   display: flex;
   overflow-x: auto;
-  gap: 20px;
+  gap: -40px;
   padding-bottom: 10px;
   scroll-snap-type: x mandatory;
 }
 .phone-carousel::-webkit-scrollbar { display: none; }
 .phone-carousel .style { flex: 0 0 auto; scroll-snap-align: start; }
 .style { position: relative; }
-.style img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.style img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  -webkit-box-reflect: below 0 linear-gradient(transparent, rgba(255,255,255,0.1));
+}
+.style:hover,
+.style.active {
+  border-color: #d4af37;
+  outline-color: #d4af37;
+  box-shadow: 0 0 20px rgba(255,214,230,0.5);
+}
+.style:hover img,
+.style.active img {
+  box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
+  border: 1px solid #d4af37;
+}
 .style.disabled { opacity: 0.5; pointer-events: none; }
 #style-limit-msg {
   color: var(--accent);

@@ -28,6 +28,7 @@
     </div>
     <h3 id="style-header" class="subheadline" style="display:none">Wybierz, które nasze realizacje Ci się podobają (maks. 5)</h3>
     <div class="grid" id="style-list"></div>
+    <div id="phone-carousel" class="phone-carousel"></div>
     <div id="after-style" style="display:none">
       <h4>Informacje dodatkowe</h4>
       <textarea id="notes" class="glass-control" placeholder="Opisz styl jaki Ci się podoba"></textarea>
