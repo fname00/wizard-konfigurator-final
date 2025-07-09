@@ -5,6 +5,16 @@
   var postId = 0;
   var styleSel = [];
   var selectedFeatures = [];
+
+  function updateNext1(){
+    var nipFilled = $('#nip').val().trim() !== '';
+    var rodoOk    = $('#rodo').prop('checked');
+    if(styleSel.length>=1 && nipFilled && rodoOk){
+      $('#next-1').prop('disabled', false).show();
+    }else{
+      $('#next-1').prop('disabled', true).hide();
+    }
+  }
   function updateBudgetText(v){
     var text='Budżet: '+v+' zł';
     if(v<10000) text+='\nOgraniczony zakres.'; else text+='\nPełny zakres funkcji.';
@@ -16,6 +26,7 @@
     $('#progress-steps span[data-step="'+step+'"]').addClass('active');
   }
   setProgress(1);
+  $('#next-1').hide();
   function save(meta, cb){
     $.post(wizardData.ajaxurl, {
       action: 'save_wizard_step',
@@ -42,7 +53,8 @@
       $('#style-list').empty();
       $('#style-header').hide();
       $('#after-style').hide();
-      $('#next-1').prop('disabled', true);
+      $('#next-1').prop('disabled', true).hide();
+      updateNext1();
       styleSel=[];
       return;
     }
@@ -60,7 +72,8 @@
     });
     $('#style-header').fadeIn(200);
     $('#after-style').hide();
-    $('#next-1').prop('disabled', true);
+    $('#next-1').prop('disabled', true).hide();
+    updateNext1();
   });
 
   $('#style-list').on('click','.style',function(){
@@ -75,12 +88,14 @@
     }
     if(styleSel.length>=1){
       $('#after-style').fadeIn(200);
-      $('#next-1').prop('disabled', false);
     }else{
       $('#after-style').hide();
-      $('#next-1').prop('disabled', true);
     }
+    updateNext1();
   });
+
+  $('#nip').on('input', updateNext1);
+  $('#rodo').on('change', updateNext1);
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
     if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
