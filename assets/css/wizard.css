@@ -241,9 +241,11 @@ input[type=checkbox] {
 }
 
 .custom-checkbox {
-  width: 20px;
+  width: 40px;
   height: 20px;
   border: 1px solid #3f3d38;
+  border-radius: 20px;
+  background: #141919;
   border-radius: 4px;
   background: transparent;
   position: relative;
@@ -260,11 +262,11 @@ input[type=checkbox] {
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg) scale(0);
-  transition: transform .2s;
+  transition: transform 0.3s;
 }
 .custom-checkbox.checked {
-  background: var(--cta);
-  border-color: var(--cta);
+  background: linear-gradient(135deg, #a8ffc5, #f2fdd7);
+  border-color: #a8ffc5;
   transform: scale(1.1);
 }
 .custom-checkbox.checked::after {
