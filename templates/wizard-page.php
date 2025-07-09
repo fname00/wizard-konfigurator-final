@@ -15,7 +15,7 @@
     <div class="grid" id="style-list"></div>
     <div id="after-style" style="display:none">
       <h4>Informacje dodatkowe</h4>
-      <textarea id="notes" placeholder="Kilka słów od Ciebie"></textarea>
+      <textarea id="notes" placeholder="Opisz styl jaki Ci się podoba"></textarea>
       <input id="nip" placeholder="NIP firmy">
       <label class="rodo-label"><input type="checkbox" id="rodo"> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
       <button id="next-1">Dalej</button>
