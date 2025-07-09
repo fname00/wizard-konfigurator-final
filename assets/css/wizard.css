@@ -1,8 +1,12 @@
+:root {
+  --accent: #FBDEBC;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: #f5f5f5;
-  color: #333;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
 }
 
 #wizard {
@@ -11,7 +15,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#fff, #e6e6e6);
+  background: rgba(0,0,0,0.6);
   overflow: hidden;
 }
 
@@ -26,18 +30,23 @@ body {
 
 #progress-bar {
   height: 5px;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  background: linear-gradient(to right, var(--accent), #fff);
   width: 0%;
 }
 
 .step {
   padding: 20px;
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 40px);
   height: 100%;
   overflow-y: auto;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  color: #000;
 }
 
 .hidden { display: none; }
@@ -51,12 +60,13 @@ body {
 
 .grid div {
   flex: 1 1 calc(50% - 20px);
-  border: 2px solid #ddd;
-  background: linear-gradient(#fff, #f0f0f0);
+  border: 1px solid var(--accent);
+  background: rgba(255,255,255,0.1);
   padding: 20px;
   cursor: pointer;
   border-radius: 12px;
   text-align: center;
+  backdrop-filter: blur(10px);
   transition: transform .2s, box-shadow .2s, border-color .2s;
 }
 
@@ -70,9 +80,9 @@ body {
 .grid div:hover,
 .grid div.active {
   transform: scale(1.05);
-  border-color: #4facfe;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background: linear-gradient(#f0f8ff, #e6f7ff);
+  border-color: #fff;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.2);
 }
 
 button {
@@ -80,13 +90,18 @@ button {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(#4facfe, #00f2fe);
-  color: #fff;
-  padding: 15px 30px;
+  background: linear-gradient(135deg, var(--accent), #fff);
+  color: #000;
+  padding: 15px 40px;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   font-size: 18px;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: box-shadow .2s, border-color .2s;
+}
+button:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 textarea,
@@ -128,7 +143,7 @@ input::placeholder {
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  color: #333;
+  color: var(--accent);
 }
 
 #progress-steps span { opacity: .5; }
@@ -138,19 +153,20 @@ input::placeholder {
 
 .tag {
   display: inline-block;
-  border: 2px solid #ccc;
+  border: 1px solid var(--accent);
   padding: 6px 12px;
   border-radius: 12px;
   cursor: pointer;
   margin: 4px;
   transition: background .2s, color .2s, border-color .2s;
+  backdrop-filter: blur(10px);
 }
 
-.tag:hover { background: #e6f7ff; border-color: #4facfe; }
+.tag:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
 .tag.selected {
-  background: #4facfe;
-  color: #fff;
-  border-color: #4facfe;
+  background: rgba(255,255,255,0.3);
+  color: #000;
+  border-color: #fff;
 }
 
 .tag-container {
@@ -167,22 +183,23 @@ input::placeholder {
 }
 
 .feat-table tr {
-  background: linear-gradient(#fff, #f0f0f0);
-  border: 2px solid #ddd;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--accent);
   border-radius: 12px;
   transition: transform .2s, box-shadow .2s, border-color .2s;
+  backdrop-filter: blur(10px);
 }
 
 .feat-table tr:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-color: #4facfe;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  border-color: #fff;
 }
 
 .feat-table tr:has(input:checked) {
-  background: linear-gradient(#f0f8ff, #e6f7ff);
-  border-color: #4facfe;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.2);
+  border-color: #fff;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
 
 .feature-tag {
@@ -194,4 +211,10 @@ input::placeholder {
 .feature-tag img {
   width: 40px;
   height: auto;
+}
+
+@media (max-width: 600px) {
+  .grid div {
+    flex: 1 1 100%;
+  }
 }
