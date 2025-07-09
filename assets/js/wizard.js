@@ -33,9 +33,21 @@
   });
   // features will be rendered after selecting a goal
   $('#branze-list').on('click','.branża',function(){
-    $('.branża').removeClass('active');
-    $(this).addClass('active');
-    var slug=$(this).data('slug');
+    var $this=$(this);
+    if($this.hasClass('active')){
+      $this.removeClass('active');
+      $('#branze-list .branża').slideDown();
+      $('#style-list').empty();
+      $('#style-header').hide();
+      $('#after-style').hide();
+      $('#next-1').prop('disabled', true);
+      styleSel=[];
+      return;
+    }
+    $('#branze-list .branża').not($this).slideUp();
+    $('#branze-list .branża').removeClass('active');
+    $this.addClass('active').slideDown();
+    var slug=$this.data('slug');
     styleSel=[];
     $('#style-list').empty();
     toArray(wizardData.style).forEach(function(s){
