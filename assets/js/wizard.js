@@ -38,7 +38,7 @@
     var rodoOk    = $('#rodo').prop('checked');
     var allOk     = styleSel.length >= 1 && nipFilled && rodoOk;
 
-    if(styleSel.length >= 1){
+    if(allOk){
       $('#next-1').show();
     }else{
       $('#next-1').hide();
