@@ -2,9 +2,14 @@ jQuery(function($){
   function toArray(obj){
     return Array.isArray(obj) ? obj : Object.values(obj || {});
   }
+  function getNextIndex(t){
+    return Math.max(-1, ...t.children('tr').map(function(){
+      return parseInt($(this).data('index')) || -1;
+    }).get()) + 1;
+  }
   function addBranzaRow(){
     var t = $('#kc_add_branza').parent().prev('table').find('tbody');
-    var idx = t.children('tr').length;
+    var idx = getNextIndex(t);
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_branze['+idx+'][title]"></td>'+
       '<td><input name="konf_branze['+idx+'][slug]"></td>'+
@@ -15,7 +20,7 @@ jQuery(function($){
   }
   function addCelRow(){
     var t = $('#kc_add_cele').parent().prev('table').find('tbody');
-    var idx = t.children('tr').length;
+    var idx = getNextIndex(t);
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_cele['+idx+'][title]"></td>'+
       '<td><input name="konf_cele['+idx+'][slug]"></td>'+
@@ -24,7 +29,7 @@ jQuery(function($){
   }
   function addStyleRow(){
     var t = $('#kc_add_style').parent().prev('table').find('tbody');
-    var idx = t.children('tr').length;
+    var idx = getNextIndex(t);
     var sel = '<select name="konf_style['+idx+'][branch]">';
     toArray(kcAdminData.branze).forEach(function(b){
       sel += '<option value="'+b.slug+'">'+b.title+'</option>';
@@ -42,7 +47,7 @@ jQuery(function($){
   }
   function addFeatureRow(){
     var t = $('#kc_add_feature').parent().prev('table').find('tbody');
-    var idx = t.children('tr').length;
+    var idx = getNextIndex(t);
     var cele = '';
     toArray(kcAdminData.cele).forEach(function(c){
       cele += '<label><input type="checkbox" name="konf_features['+idx+'][assigned][]" value="'+c.slug+'"> '+c.title+'</label><br>';
