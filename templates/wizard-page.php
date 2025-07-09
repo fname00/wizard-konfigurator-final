@@ -7,6 +7,7 @@
     <h3 id="style-header" style="display:none">Wybierz, które nasze realizacje Ci się podobają (max 5)</h3>
     <div class="grid" id="style-list"></div>
     <div id="after-style" style="display:none">
+      <h4>Informacje dodatkowe</h4>
       <textarea id="notes" placeholder="Kilka słów od Ciebie"></textarea>
       <input id="nip" placeholder="NIP firmy">
       <label class="rodo-label"><input type="checkbox" id="rodo"> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
@@ -29,5 +30,4 @@
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
     <input id="email" placeholder="Twój email">
-    <button id="finish">Prześlij wycenę</button>  </div>
-</div>
+    <button id="finish">Prześlij wycenę</button>  </div></div>
