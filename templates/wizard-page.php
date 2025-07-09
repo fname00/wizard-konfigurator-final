@@ -24,7 +24,23 @@
   <div class="step hidden" id="step-2">
     <h2>Co ma robić Twoja strona?</h2>
     <div class="grid" id="cele-list"></div>
-    <div id="features-list" style="display:none"></div>
+    <div id="features-list" style="display:none">
+      <div id="funkcja-section" class="feature-section">
+        <h3>Wybierz interesujące Cię funkcje</h3>
+        <p>Zaznacz funkcje które mogą być dla Ciebie przydatne, nawet jeśli nie wiesz czy w pełni je wykorzystasz.</p>
+        <div class="feature-table"></div>
+      </div>
+      <div id="integracja-section" class="feature-section">
+        <h3>Wybierz Integracje</h3>
+        <p>Jeśli brakuje jakiejś integracji na tej liście, zaznacz podobne do tej co potrzebujesz lub inne...</p>
+        <div class="feature-table"></div>
+      </div>
+      <div id="automatyzacja-section" class="feature-section">
+        <h3>Wybierz pomocne Ci automatyzacje</h3>
+        <p>Automatyzacje skracają czas pracy...</p>
+        <div class="feature-table"></div>
+      </div>
+    </div>
     <input id="tel" placeholder="Telefon">
     <select id="role"><option>Właściciel</option><option>Menedżer</option><option>Pracownik</option></select>
     <label><input type="checkbox" id="whatsapp"> WhatsApp</label>
@@ -37,3 +53,11 @@
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
     <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
+
+    <h3>Email do przesłania wyceny</h3>
+    <input id="email" placeholder="Twój email">    <button id="finish" disabled>Prześlij wycenę</button>
+  </div>
+</div>
+
+    <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
+
