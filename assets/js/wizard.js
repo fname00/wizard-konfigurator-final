@@ -133,7 +133,11 @@
     $('#budget').val(cost);
     updateBudgetText(cost);
     save({cel:$('.cel.active').data('slug'), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
-      $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); setProgress(3); });
+      $('#step-2').fadeOut(200,function(){
+        $('#step-3').fadeIn(200);
+        setProgress(3);
+        $('#finish').prop('disabled', true);
+      });
     });
   });
   $('#budget').on('input change',function(){
@@ -146,7 +150,11 @@
     $('#budget').val(total);
     updateBudgetText(total);
   });
+  var emailValid=false;
+  $('#email').on('input',function(){
+    emailValid=/^[^@]+@[^@]+\.[^@]+$/.test($(this).val().trim());
+    $('#finish').prop('disabled', !emailValid);
+  });
   $('#finish').click(function(){
     var email=$('#email').val();
-    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
-    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
+    if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
