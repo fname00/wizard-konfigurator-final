@@ -24,7 +24,8 @@
       var table=$('<table class="feat-table"><tbody></tbody></table>');
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
-        table.append('<tr><td><label><input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> '+f.title+'</label></td><td>'+desc+'</td></tr>');
+        var img = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
+        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+'<input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> <span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
       });
       table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
       $('#features-list').append(table);
@@ -69,7 +70,8 @@
     });
   }
   toArray(wizardData['branże']).forEach(function(b){
-    $('#branze-list').append('<div class="branża" data-slug="'+b.slug+'">'+b.title+'</div>');
+    var img = b.icon ? '<img src="'+b.icon+'" alt="">' : '';
+    $('#branze-list').append('<div class="branża" data-slug="'+b.slug+'">'+img+'<span>'+b.title+'</span></div>');
   });
   toArray(wizardData.cele).forEach(function(c){
     $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+c.title+'</div>');
