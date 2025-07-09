@@ -35,9 +35,8 @@
   }
 
   function updateNext1(){
-    var nipFilled = $('#nip').val().trim() !== '';
-    var rodoOk    = $('#rodo').prop('checked');
-    var allOk     = styleSel.length >= 1 && nipFilled && rodoOk;
+    var rodoOk = $('#rodo').prop('checked');
+    var allOk  = styleSel.length >= 1 && rodoOk;
 
     if(allOk){
       $('#next-1').show();
@@ -140,15 +139,13 @@
     updateNext1();
   });
 
-  $('#nip').on('input', updateNext1);
   $('#rodo').on('change', function(){
     $(this).next('.custom-checkbox').toggleClass('checked', this.checked);
     updateNext1();
   });
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
-    if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
-    save({branza:$('#branch-select').val(), style:styleSel.join(','), notes:$('#notes').val(), nip:$('#nip').val(), rodo:1},function(){
+    save({branza:$('#branch-select').val(), style:styleSel.join(','), rodo:1},function(){
       $('#step-1').fadeOut(200,function(){ $('#step-2').fadeIn(200); setProgress(2); });
     });
   });
