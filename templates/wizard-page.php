@@ -22,7 +22,7 @@
       <h4>Informacje dodatkowe</h4>
       <textarea id="notes" placeholder="Opisz styl jaki Ci się podoba"></textarea>
       <input id="nip" placeholder="NIP firmy">
-      <label class="rodo-label"><input type="checkbox" id="rodo"> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
+      <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
       <button id="next-1">Dalej</button>
     </div>
   </div>

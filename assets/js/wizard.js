@@ -122,7 +122,10 @@
   });
 
   $('#nip').on('input', updateNext1);
-  $('#rodo').on('change', updateNext1);
+  $('#rodo').on('change', function(){
+    $(this).next('.custom-checkbox').toggleClass('checked', this.checked);
+    updateNext1();
+  });
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
     if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
