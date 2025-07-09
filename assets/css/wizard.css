@@ -174,6 +174,8 @@ button:hover {
 /* Call-to-action button with gradient background and shine effect */
 .cta-btn {
   position: relative;
+  background: linear-gradient(135deg, #ffe5d9, #d8e8ff);
+  color: #3d3d3d;
   background: rgba(255,255,255,0.3);
   background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
   color: #3D3D3D;
@@ -181,6 +183,7 @@ button:hover {
   border-radius: 50px;
   backdrop-filter: blur(12px);
   overflow: hidden;
+  border-radius: 50px;
 }
 
 .cta-btn::after {
@@ -190,9 +193,13 @@ button:hover {
   left: -150%;
   width: 50%;
   height: 100%;
-  background: rgba(255,255,255,0.6);
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
   transform: skewX(-20deg);
-  animation: shine 2s infinite;
+  transition: left 0.6s;
+}
+
+.cta-btn:hover::after {
+  left: 150%;
 }
 
 @keyframes shine {
