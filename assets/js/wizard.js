@@ -69,9 +69,12 @@
       else alert('Błąd: '+res.data.message);
     });
   }
+  var $branchSelect = $('#branch-select');
+  $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
-    $('#branch-select').append('<option value="'+b.slug+'">'+b.title+'</option>');
+    $branchSelect.append('<option value="'+b.slug+'">'+b.title+'</option>');
   });
+  $branchSelect.val('');
   toArray(wizardData.cele).forEach(function(c){
     $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+c.title+'</div>');
   });

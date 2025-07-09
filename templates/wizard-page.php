@@ -12,7 +12,9 @@
     <h2 class="intro-title">Wybierz branżę dla swojej strony internetowej</h2>
     <p class="intro-desc">Dzięki temu dopasujemy styl i funkcje do Twoich potrzeb</p>
     <div class="grid" id="branze-list">
-      <select id="branch-select" class="branch-select"></select>
+      <select id="branch-select" class="branch-select">
+        <option value="" selected disabled>Wybierz branżę</option>
+      </select>
     </div>
     <h3 id="style-header" style="display:none">Wybierz, które nasze realizacje Ci się podobają (max 5)</h3>
     <div class="grid" id="style-list"></div>
