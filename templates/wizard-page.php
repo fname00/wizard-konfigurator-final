@@ -27,9 +27,8 @@
       </select>
     </div>
     <div class="grid" id="style-list"></div>
-    <div id="phone-carousel" class="phone-carousel"></div>
     <h3 id="style-header" class="subheadline" style="display:none">Wybierz przykłady, które Ci się podobają (max 5)</h3>
-    <div id="after-style" style="display:none">
+    <div id="after-style">
       <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
       <button id="next-1" class="cta-btn">Dalej</button>
     </div>

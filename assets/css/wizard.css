@@ -53,6 +53,23 @@ body {
 }
 #step-1 #after-style {
   text-align: center;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(12px);
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#step-1 #after-style button {
+  position: static;
 }
 
 #wizard {
@@ -135,6 +152,9 @@ body {
   background-size: 12px;
   padding: 20px;
   text-align: center;
+  text-align-last: center;
+  display: block;
+  margin: 0 auto;
   appearance: none;
   cursor: pointer;
   color: var(--body-text);
@@ -437,15 +457,6 @@ input::placeholder {
     flex: 1 1 100%;
   }
 }
-.phone-carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: -40px;
-  padding-bottom: 10px;
-  scroll-snap-type: x mandatory;
-}
-.phone-carousel::-webkit-scrollbar { display: none; }
-.phone-carousel .style { flex: 0 0 auto; scroll-snap-align: start; }
 .style {
   position: relative;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out,

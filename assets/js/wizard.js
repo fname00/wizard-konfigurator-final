@@ -85,13 +85,11 @@
     $('#branch-select').val(slug);
     styleSel = [];
     $('#style-list').empty();
-    $('#phone-carousel').empty();
     toArray(wizardData.style).forEach(function(s){
       if(s.branch===slug){
         var img = s.icon ? '<img src="'+s.icon+'" alt="">' : '';
         var item = '<div class="style" data-title="'+s.title+'">'+img+'<span>'+s.title+'</span></div>';
         $('#style-list').append(item);
-        $('#phone-carousel').append(item);
       }
     });
     $('#style-header').fadeIn(200);
@@ -110,7 +108,7 @@
     }
   });
 
-  $('#style-list, #phone-carousel').on('click','.style',function(){
+  $('#style-list').on('click','.style',function(){
     var title=$(this).data('title');
     if($(this).hasClass('active')){
       $(this).removeClass('active');
@@ -225,25 +223,4 @@
     });
   });
 
-  // phone carousel drag support
-  var $carousel = $('#phone-carousel');
-  if($carousel.length){
-    var dragging = false;
-    var startX = 0;
-    var startScroll = 0;
-    $carousel.on('touchstart mousedown', function(e){
-      dragging = true;
-      startX = e.pageX || e.originalEvent.touches[0].pageX;
-      startScroll = $carousel.scrollLeft();
-    });
-    $carousel.on('touchmove mousemove', function(e){
-      if(!dragging) return;
-      var x = e.pageX || e.originalEvent.touches[0].pageX;
-      $carousel.scrollLeft(startScroll - (x - startX));
-      e.preventDefault();
-    });
-    $(document).on('touchend mouseup touchcancel', function(){
-      dragging = false;
-    });
-  }
 })(jQuery);
