@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap');
+
 :root {
   --accent: #FBDEBC;
   --tile-bg: #111111;
@@ -378,4 +380,11 @@ input::placeholder {
   color: var(--accent);
   text-align: center;
   margin-top: 10px;
+}
+
+#next-1,
+#next-2,
+#finish {
+  font-weight: 600;
+  text-transform: uppercase;
 }

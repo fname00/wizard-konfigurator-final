@@ -1,4 +1,14 @@
 <?php if(!defined('ABSPATH')) exit; ?>
+<style>
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+  }
+  .subheadline {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+  }
+</style>
 <div id="wizard">
   <div id="progress">
     <div id="progress-bar"></div>
