@@ -9,13 +9,17 @@ body {
   color: #fff;
 }
 
+.intro-title {
+  color: #FBDEBC;
+}
+
 #wizard {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: #141919;
   overflow: hidden;
 }
 
@@ -42,11 +46,10 @@ body {
   overflow-y: auto;
   max-width: 600px;
   margin: 20px auto;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid var(--accent);
+  background: #141919;
+  border: none;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  color: #000;
+  color: #fff;
 }
 
 .hidden { display: none; }
@@ -60,14 +63,15 @@ body {
 
 .grid div {
   flex: 1 1 calc(50% - 20px);
-  border: 1px solid var(--accent);
-  background: rgba(255,255,255,0.1);
+  border: 1px solid #01090c;
+  outline: 1px solid #3f3d38;
+  background: #141919;
   padding: 20px;
   cursor: pointer;
   border-radius: 12px;
   text-align: center;
   backdrop-filter: blur(10px);
-  transition: transform .2s, box-shadow .2s, border-color .2s;
+  transition: transform .2s, box-shadow .2s, border-color .2s, outline-color .2s;
 }
 
 .grid div img {
@@ -80,7 +84,8 @@ body {
 .grid div:hover,
 .grid div.active {
   transform: scale(1.05);
-  border-color: #fff;
+  border-color: #c7a87a;
+  outline: 1px solid #d1a54096;
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.2);
 }
@@ -90,8 +95,8 @@ button {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent), #fff);
-  color: #000;
+  background: linear-gradient(135deg, var(--accent), #c7a87a);
+  color: #141919;
   padding: 15px 40px;
   border: none;
   border-radius: 40px;
@@ -111,7 +116,10 @@ select {
   width: 100%;
   margin: 10px 0;
   padding: 12px;
-  border: 1px solid #ccc;
+  background: #141919;
+  color: #fff;
+  border: 1px solid #01090c;
+  outline: 1px solid #3f3d38;
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
@@ -121,6 +129,8 @@ input[type=checkbox] {
   width: auto;
   display: inline-block;
   margin-right: 8px;
+  background: #141919;
+  border: 1px solid #3f3d38;
 }
 
 .rodo-label {
