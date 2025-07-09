@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="step hidden" id="step-2">
-    <h2>Co ma robić Twoja strona?</h2>
+    <h2>Co Ciebie interesuje?</h2>
     <div class="grid" id="cele-list"></div>
     <div id="features-list" style="display:none">
       <div id="funkcja-section" class="feature-section">
@@ -52,6 +52,7 @@
     <input type="range" id="budget" min="0" max="50000">
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
+    <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
     <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
 
     <h3>Email do przesłania wyceny</h3>
