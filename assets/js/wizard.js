@@ -77,9 +77,7 @@
   });
   // features will be rendered after selecting a goal
   function loadBranch(slug, title){
-    var $tile = $('#choose-branch');
-    $tile.addClass('active').data('slug', slug).text(title);
-    $('#branch-select').addClass('hidden');
+    $('#branch-select').val(slug);
     styleSel = [];
     $('#style-list').empty();
     toArray(wizardData.style).forEach(function(s){
@@ -93,10 +91,6 @@
     $('#next-1').prop('disabled', true).hide();
     updateNext1();
   }
-
-  $('#choose-branch').on('click', function(){
-    $('#branch-select').toggleClass('hidden');
-  });
 
   $('#branch-select').on('change', function(){
     var slug = $(this).val();
@@ -129,7 +123,7 @@
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
     if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
-    save({branza:$('.branża.active').data('slug'), style:styleSel.join(','), notes:$('#notes').val(), nip:$('#nip').val(), rodo:1},function(){
+    save({branza:$('#branch-select').val(), style:styleSel.join(','), notes:$('#notes').val(), nip:$('#nip').val(), rodo:1},function(){
       $('#step-1').fadeOut(200,function(){ $('#step-2').fadeIn(200); setProgress(2); });
     });
   });
