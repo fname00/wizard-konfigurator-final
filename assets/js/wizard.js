@@ -35,11 +35,15 @@
   function updateNext1(){
     var nipFilled = $('#nip').val().trim() !== '';
     var rodoOk    = $('#rodo').prop('checked');
-    if(styleSel.length>=1 && nipFilled && rodoOk){
-      $('#next-1').prop('disabled', false).show();
+    var allOk     = styleSel.length >= 1 && nipFilled && rodoOk;
+
+    if(styleSel.length >= 1){
+      $('#next-1').show();
     }else{
-      $('#next-1').prop('disabled', true).hide();
+      $('#next-1').hide();
     }
+
+    $('#next-1').prop('disabled', !allOk);
   }
   function updateBudgetText(v){
     var text='Budżet: '+v+' zł';
