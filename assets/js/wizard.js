@@ -5,6 +5,11 @@
   var postId = 0;
   var styleSel = [];
   var selectedFeatures = [];
+  function updateBudgetText(v){
+    var text='Budżet: '+v+' zł';
+    if(v<10000) text+='\nOgraniczony zakres.'; else text+='\nPełny zakres funkcji.';
+    $('#budget-summary').text(text);
+  }
   function setProgress(step){
     $('#progress-bar').css('width', ((step-1)/2*100)+'%');
   }
@@ -101,24 +106,23 @@
       $('#summary-list').append('<label><input type="checkbox" class="sum-item" data-price="'+f.price+'" checked> '+f.title+' ('+f.price+' zł)</label>');
     });
     $('#current-cost').text(cost+' zł');
-    $('#budget').val(cost).trigger('input');
+    $('#budget').val(cost);
+    updateBudgetText(cost);
     save({cel:$('.cel.active').data('slug'), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
       $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); setProgress(3); });
     });
   });
   $('#budget').on('input change',function(){
-    var v=$(this).val(), text='Budżet: '+v+' zł';
-    if(v<10000) text+='\nOgraniczony zakres.'; else text+='\nPełny zakres funkcji.';
-    $('#budget-summary').text(text);
+    updateBudgetText($(this).val());
   });
   $('#summary-list').on('change','.sum-item',function(){
     var total=0;
     $('#summary-list .sum-item:checked').each(function(){ total+=parseInt($(this).data('price')); });
     $('#current-cost').text(total+' zł');
-    $('#budget').val(total).trigger('input');
+    $('#budget').val(total);
+    updateBudgetText(total);
   });
   $('#finish').click(function(){
     var email=$('#email').val();
     if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
-    save({budget:$('#budget').val(), email: email}, function(){
-      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
+    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
