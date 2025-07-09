@@ -30,6 +30,7 @@
       $('#features-list').append(table);
     });
     $('#features-list').fadeIn(200);
+  }
 
   function updateNext1(){
     var nipFilled = $('#nip').val().trim() !== '';
@@ -138,34 +139,6 @@
       if(selectedGoals.indexOf(slug)===-1) selectedGoals.push(slug);
     }
     renderFeatures();
-    $('#features-list').empty();
-    selectedFeatures=[];
-    $('#features-list .feature-table').empty();
-    $('#features-list .feature-section').hide();
-    var groups={funkcja:[],integracja:[],automatyzacja:[]};
-    toArray(wizardData.features).forEach(function(f){
-      if(!f.assigned || f.assigned.indexOf(slug)!==-1){
-        if(!groups[f.type]) groups[f.type]=[];
-        groups[f.type].push(f);
-      }
-    });
-    var hasAny=false;
-    ['funkcja','integracja','automatyzacja'].forEach(function(type){
-      var list=groups[type];
-      if(!list||!list.length) return;
-      $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
-      var cont=$('<div class="tag-container"></div>');
-      var $section = $('#'+type+'-section');
-      if(!list||!list.length){ $section.hide(); return; }
-      var table=$('<table class="feat-table"><tbody></tbody></table>');
-      list.forEach(function(f){
-        var desc=f.desc||f.description||'';
-        cont.append('<div class="tag feature-tag" data-price="'+(f.price||0)+'" data-title="'+f.title+'" title="'+desc+'">'+f.title+'</div>');
-      });
-      cont.append('<div class="tag feature-tag" data-price="0" data-title="inne-'+type+'">inne, niestandardowe rozwiązania</div>');
-      $('#features-list').append(cont);
-    });
-      $('#features-list').fadeIn(200);
   });
   $('#features-list').on('click','.feature-tag',function(){
     var $t=$(this);
@@ -178,12 +151,6 @@
       $t.addClass('selected');
       selectedFeatures.push({title:title,price:price});
     }
-      table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
-      $section.find('.feature-table').append(table);
-      $section.show();
-      hasAny=true;
-    });
-    if(hasAny) $('#features-list').fadeIn(200);
   });
   $('#next-2').click(function(){
     var tel = $('#tel').val().trim();
@@ -204,12 +171,9 @@
     $('#budget').val(cost);
     updateBudgetText(cost);
     save({cel:selectedGoals.join(','), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
-      $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); setProgress(3); });
-    save({cel:$('.cel.active').data('slug'), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
       $('#step-2').fadeOut(200,function(){
         $('#step-3').fadeIn(200);
         setProgress(3);
-        $('#finish').prop('disabled', true);
       });
     });
   });
@@ -231,6 +195,13 @@
   });
   $('#finish').click(function(){
     var email=$('#email').val();
-    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
-    if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
-    if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){ alert('Podaj poprawny email'); return; }    save({budget:$('#budget').val(), email: email}, function(){      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
+    if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){
+      alert('Podaj poprawny email');
+      return;
+    }
+    save({budget:$('#budget').val(), email: email}, function(){
+      alert('Wycena wysłana!');
+      location.reload();
+    });
+  });
+})(jQuery);
