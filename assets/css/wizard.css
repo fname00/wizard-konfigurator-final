@@ -210,6 +210,23 @@ button:hover {
   background: rgba(255,255,255,0.3);
   background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
   color: #fff;
+  border: 1px solid #01090c;
+  outline: 1px solid #3f3d38;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.glass-control::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transition: background-color .3s;
+  pointer-events: none;
   border: 1px solid #d4af37;
   border-radius: 40px;
   backdrop-filter: blur(12px);
@@ -233,6 +250,12 @@ select:focus {
   border-color: #c7a87a;
   outline: 1px solid #d1a54096;
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+}
+.glass-control:focus {
+  box-shadow: 0 0 8px rgba(188,217,255,0.8), 0 4px 20px rgba(255,255,255,0.2);
+}
+.glass-control:focus::after {
+  background-color: #bcd9ff;
 }
 
 input[type=checkbox] {
