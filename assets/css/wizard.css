@@ -8,23 +8,25 @@
   --cta: #FF3B30;
 
   /* new color scheme */
-  --main-bg-start: #FDF5E6;
-  --main-bg-end: #F4EAD3;
-  --cta-start: #F4EAD3;
-  --cta-end: #FFD7B5;
-  --header-color: #3D3D3D;
-  --subhead-color: #555555;
-  --select-border: #D9B382;
-  --active-glow: #B9E4E3;
-  --checkbox-start: #B9E4E3;
-  --checkbox-end: #AEE0C9;
+  --main-bg-start: #F8EEE3;  /* light sandy top */
+  --main-bg-end: #F2E3D1;    /* warm beige bottom */
+  --cta-start: #F7E9D9;      /* CTA gradient start */
+  --cta-end: #FFD3AE;        /* CTA gradient end */
+  --header-color: #3D3A36;   /* main headline */
+  --subhead-color: #6C6761;  /* subtitle */
+  --select-border: #D7BFA3;  /* champagne gold */
+  --active-glow: #AEE0DB;    /* minty blue glow */
+  --checkbox-start: #AEE0C9; /* checkbox gradient start */
+  --checkbox-end: #B9E4E3;   /* checkbox halo */
+  --body-text: #4C4C4C;      /* default text */
+  --cta-text: #3D3A36;       /* CTA button text */
 }
 
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(180deg, var(--main-bg-start), var(--main-bg-end));
-  color: #fff;
+  color: var(--body-text);
 }
 
 .intro-title {
@@ -37,6 +39,20 @@ body {
 
 .subheadline {
   color: var(--subhead-color);
+}
+
+/* Center everything in the first step */
+#step-1 {
+  text-align: center;
+}
+#step-1 .grid {
+  justify-content: center;
+}
+#step-1 .rodo-label {
+  justify-content: center;
+}
+#step-1 #after-style {
+  text-align: center;
 }
 
 #wizard {
@@ -73,7 +89,7 @@ body {
   margin: 20px auto;
   border: none;
   border-radius: 20px;
-  color: #fff;
+  color: var(--body-text);
 }
 
 .hidden { display: none; }
@@ -113,7 +129,7 @@ body {
 
 .branch-select {
   flex: 1 1 calc(50% - 20px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234C4C4C'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   background-size: 12px;
@@ -121,7 +137,7 @@ body {
   text-align: center;
   appearance: none;
   cursor: pointer;
-  color: #fff;
+  color: var(--body-text);
   border: 1px solid var(--select-border);
   outline: 1px solid var(--select-border);
   transition: transform .2s, box-shadow .2s, border-color .2s, outline-color .2s;
@@ -137,7 +153,7 @@ body {
 
 .branch-select option {
   background: transparent;
-  color: #fff;
+  color: var(--body-text);
 }
 
 .grid div img {
@@ -179,9 +195,9 @@ button {
   transform: translateX(-50%);
   background: rgba(255,255,255,0.3);
   background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
-  color: #fff;
+  color: var(--cta-text);
   padding: 15px 40px;
-  border: 1px solid #d4af37;
+  border: 1px solid var(--select-border);
   border-radius: 50px;
   font-size: 18px;
   cursor: pointer;
@@ -197,8 +213,8 @@ button:hover {
 .cta-btn {
   position: relative;
   background: linear-gradient(135deg, var(--cta-start), var(--cta-end));
-  color: #3D3D3D;
-  border: 1px solid #d4af37;
+  color: var(--cta-text);
+  border: 1px solid var(--select-border);
   border-radius: 50px;
   backdrop-filter: blur(12px);
   overflow: hidden;
@@ -227,9 +243,9 @@ button:hover {
 .glass-control {
   background: rgba(255,255,255,0.3);
   background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
-  color: #fff;
-  border: 1px solid #01090c;
-  outline: 1px solid #3f3d38;
+  color: var(--body-text);
+  border: 1px solid var(--select-border);
+  outline: 1px solid var(--select-border);
   border-radius: 8px;
   backdrop-filter: blur(10px);
   position: relative;
@@ -245,7 +261,7 @@ button:hover {
   background: var(--accent);
   transition: background-color .3s;
   pointer-events: none;
-  border: 1px solid #d4af37;
+  border: 1px solid var(--select-border);
   border-radius: 40px;
   backdrop-filter: blur(12px);
 }
@@ -265,15 +281,15 @@ textarea:focus,
 input:focus,
 select:focus {
   transform: scale(1.05);
-  border-color: #c7a87a;
-  outline: 1px solid #d1a54096;
+  border-color: var(--active-glow);
+  outline: 1px solid var(--active-glow);
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
 .glass-control:focus {
   box-shadow: 0 0 8px rgba(188,217,255,0.8), 0 4px 20px rgba(255,255,255,0.2);
 }
 .glass-control:focus::after {
-  background-color: #bcd9ff;
+  background-color: var(--active-glow);
 }
 
 input[type=checkbox] {
@@ -281,7 +297,7 @@ input[type=checkbox] {
   display: inline-block;
   margin-right: 8px;
   background: transparent;
-  border: 1px solid #3f3d38;
+  border: 1px solid var(--select-border);
 }
 
 .rodo-label input[type=checkbox] {
@@ -291,7 +307,7 @@ input[type=checkbox] {
 .custom-checkbox {
   width: 40px;
   height: 20px;
-  border: 1px solid #3f3d38;
+  border: 1px solid var(--select-border);
   border-radius: 20px;
   background: #141919;
   border-radius: 4px;
@@ -325,6 +341,7 @@ input[type=checkbox] {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: var(--body-text);
 }
 
 #summary-list .tag { margin: 4px; }
@@ -444,7 +461,7 @@ input::placeholder {
   transition: opacity 0.2s ease-in-out;
 }
 .style.active {
-  border: 1px solid #f6e27f;
+  border: 1px solid var(--select-border);
   box-shadow: 0 0 16px rgba(251, 222, 188, 0.8);
 }
 .style.disabled {
@@ -453,14 +470,14 @@ input::placeholder {
 }
 .style:hover,
 .style.active {
-  border-color: #d4af37;
-  outline-color: #d4af37;
+  border-color: var(--select-border);
+  outline-color: var(--select-border);
   box-shadow: 0 0 20px rgba(255,214,230,0.5);
 }
 .style:hover img,
 .style.active img {
   box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
-  border: 1px solid #d4af37;
+  border: 1px solid var(--select-border);
 }
 .style.disabled { opacity: 0.5; pointer-events: none; }
 #style-limit-msg {
