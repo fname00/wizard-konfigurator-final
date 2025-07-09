@@ -19,7 +19,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #141919;
   overflow: hidden;
 }
 
@@ -41,12 +40,11 @@ body {
 .step {
   padding: 20px;
   box-sizing: border-box;
-  width: calc(100% - 40px);
+  width: 100%;
+  padding-bottom: 150px;
   height: 100%;
   overflow-y: auto;
-  max-width: 600px;
   margin: 20px auto;
-  background: #141919;
   border: none;
   border-radius: 20px;
   color: #fff;
