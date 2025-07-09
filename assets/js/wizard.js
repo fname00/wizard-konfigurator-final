@@ -4,6 +4,7 @@
   }
   var postId = 0;
   var styleSel = [];
+  var styleLimit = 5;
   var selectedFeatures = [];
   var selectedGoals = [];
 
@@ -70,6 +71,8 @@
     });
   }
   var $branchSelect = $('#branch-select');
+  var $styleLimitMsg = $('<div id="style-limit-msg" class="hidden">Możesz wybrać maksymalnie '+styleLimit+' stylów</div>');
+  $('#style-list').after($styleLimitMsg);
   $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
     $branchSelect.append('<option value="'+b.slug+'">'+b.title+'</option>');
@@ -91,6 +94,8 @@
     });
     $('#style-header').fadeIn(200);
     $('#after-style').hide();
+    $('.style').removeClass('disabled');
+    $styleLimitMsg.addClass('hidden');
     $('#next-1').prop('disabled', true).hide();
     updateNext1();
   }
@@ -109,9 +114,20 @@
       $(this).removeClass('active');
       styleSel = styleSel.filter(function(t){ return t!==title; });
     }else{
-      if(styleSel.length>=5) return;
+      if(styleSel.length>=styleLimit){
+        $styleLimitMsg.removeClass('hidden');
+        $('.style').not('.active').addClass('disabled');
+        return;
+      }
       $(this).addClass('active');
       styleSel.push(title);
+    }
+    if(styleSel.length<styleLimit){
+      $('.style').removeClass('disabled');
+      $styleLimitMsg.addClass('hidden');
+    }else{
+      $('.style').not('.active').addClass('disabled');
+      $styleLimitMsg.removeClass('hidden');
     }
     if(styleSel.length>=1){
       $('#after-style').fadeIn(200);
