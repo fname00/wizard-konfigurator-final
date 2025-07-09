@@ -4,6 +4,11 @@
   }
   var postId = 0;
   var styleSel = [];
+  var selectedFeatures = [];
+  function setProgress(step){
+    $('#progress-bar').css('width', ((step-1)/2*100)+'%');
+  }
+  setProgress(1);
   function save(meta, cb){
     $.post(wizardData.ajaxurl, {
       action: 'save_wizard_step',
@@ -49,7 +54,7 @@
       $(this).addClass('active');
       styleSel.push(title);
     }
-    if(styleSel.length>=5){
+    if(styleSel.length>=1){
       $('#after-style').fadeIn(200);
       $('#next-1').prop('disabled', false);
     }else{
@@ -60,7 +65,7 @@
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
     save({branza:$('.branża.active').data('slug'), style:styleSel.join(','), notes:$('#notes').val(), nip:$('#nip').val(), rodo:1},function(){
-      $('#step-1').fadeOut(200,function(){ $('#step-2').fadeIn(200); });
+      $('#step-1').fadeOut(200,function(){ $('#step-2').fadeIn(200); setProgress(2); });
     });
   });
   $('#cele-list').on('click','.cel',function(){
@@ -68,17 +73,37 @@
     $(this).addClass('active');
     var slug=$(this).data('slug');
     $('#features-list').empty();
+    var groups={};
     toArray(wizardData.features).forEach(function(f){
       if(!f.assigned || f.assigned.indexOf(slug)!==-1){
-        $('#features-list').append('<label><input type="checkbox" value="'+f.title+'"> '+f.title+'</label><br>');
+        if(!groups[f.type]) groups[f.type]=[];
+        groups[f.type].push(f);
       }
+    });
+    $.each(groups,function(type,list){
+      $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
+      var ul=$('<ul></ul>');
+      list.forEach(function(f){
+        ul.append('<li><label><input type="checkbox" data-price="'+f.price+'" value="'+f.title+'"> '+f.title+' ('+f.price+' zł)</label></li>');
+      });
+      $('#features-list').append(ul);
     });
     $('#features-list').fadeIn(200);
   });
   $('#next-2').click(function(){
-    var feats = $('#features-list input:checked').map(function(){return $(this).val();}).get().join(',');
+    selectedFeatures = $('#features-list input:checked').map(function(){
+      return {title: $(this).val(), price: parseInt($(this).data('price'))||0};
+    }).get();
+    var feats = selectedFeatures.map(function(f){return f.title;}).join(',');
+    var cost = selectedFeatures.reduce(function(s,f){return s+f.price;},0);
+    $('#summary-list').empty();
+    selectedFeatures.forEach(function(f){
+      $('#summary-list').append('<label><input type="checkbox" class="sum-item" data-price="'+f.price+'" checked> '+f.title+' ('+f.price+' zł)</label>');
+    });
+    $('#current-cost').text(cost+' zł');
+    $('#budget').val(cost).trigger('input');
     save({cel:$('.cel.active').data('slug'), features:feats, tel:$('#tel').val(), role:$('#role').val(), whatsapp:$('#whatsapp').prop('checked')?1:0},function(){
-      $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); });
+      $('#step-2').fadeOut(200,function(){ $('#step-3').fadeIn(200); setProgress(3); });
     });
   });
   $('#budget').on('input change',function(){
@@ -86,9 +111,14 @@
     if(v<10000) text+='\nOgraniczony zakres.'; else text+='\nPełny zakres funkcji.';
     $('#budget-summary').text(text);
   });
+  $('#summary-list').on('change','.sum-item',function(){
+    var total=0;
+    $('#summary-list .sum-item:checked').each(function(){ total+=parseInt($(this).data('price')); });
+    $('#current-cost').text(total+' zł');
+    $('#budget').val(total).trigger('input');
+  });
   $('#finish').click(function(){
     var email=$('#email').val();
     if(!email||email.indexOf('@')<0){ alert('Podaj poprawny email'); return; }
     save({budget:$('#budget').val(), email: email}, function(){
-      alert('Wycena wysłana!'); location.reload();
-    });  });})(jQuery);
+      alert('Wycena wysłana!'); location.reload();    });  });})(jQuery);
