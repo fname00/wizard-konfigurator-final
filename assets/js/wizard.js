@@ -70,35 +70,21 @@
     });
   }
   toArray(wizardData['branże']).forEach(function(b){
-    var img = b.icon ? '<img src="'+b.icon+'" alt="">' : '';
-    $('#branze-list').append('<div class="branża" data-slug="'+b.slug+'">'+img+'<span>'+b.title+'</span></div>');
+    $('#branch-select').append('<option value="'+b.slug+'">'+b.title+'</option>');
   });
   toArray(wizardData.cele).forEach(function(c){
     $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+c.title+'</div>');
   });
   // features will be rendered after selecting a goal
-  $('#branze-list').on('click','.branża',function(){
-    var $this=$(this);
-    if($this.hasClass('active')){
-      $this.removeClass('active');
-      $('#branze-list .branża').slideDown();
-      $('#style-list').empty();
-      $('#style-header').hide();
-      $('#after-style').hide();
-      $('#next-1').prop('disabled', true).hide();
-      updateNext1();
-      styleSel=[];
-      return;
-    }
-    $('#branze-list .branża').not($this).slideUp();
-    $('#branze-list .branża').removeClass('active');
-    $this.addClass('active').slideDown();
-    var slug=$this.data('slug');
-    styleSel=[];
+  function loadBranch(slug, title){
+    var $tile = $('#choose-branch');
+    $tile.addClass('active').data('slug', slug).text(title);
+    $('#branch-select').addClass('hidden');
+    styleSel = [];
     $('#style-list').empty();
     toArray(wizardData.style).forEach(function(s){
       if(s.branch===slug){
-        var img=s.icon?'<img src="'+s.icon+'" alt="">':'';
+        var img = s.icon ? '<img src="'+s.icon+'" alt="">' : '';
         $('#style-list').append('<div class="style" data-title="'+s.title+'">'+img+'<span>'+s.title+'</span></div>');
       }
     });
@@ -106,6 +92,18 @@
     $('#after-style').hide();
     $('#next-1').prop('disabled', true).hide();
     updateNext1();
+  }
+
+  $('#choose-branch').on('click', function(){
+    $('#branch-select').toggleClass('hidden');
+  });
+
+  $('#branch-select').on('change', function(){
+    var slug = $(this).val();
+    var title = $('#branch-select option:selected').text();
+    if(slug){
+      loadBranch(slug, title);
+    }
   });
 
   $('#style-list').on('click','.style',function(){
