@@ -6,17 +6,37 @@
   --tile-border: #333333;
   --hover-border: #B9E4E3;
   --cta: #FF3B30;
+
+  /* new color scheme */
+  --main-bg-start: #FDF5E6;
+  --main-bg-end: #F4EAD3;
+  --cta-start: #F4EAD3;
+  --cta-end: #FFD7B5;
+  --header-color: #3D3D3D;
+  --subhead-color: #555555;
+  --select-border: #D9B382;
+  --active-glow: #B9E4E3;
+  --checkbox-start: #B9E4E3;
+  --checkbox-end: #AEE0C9;
 }
 
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: rgba(0,0,0,0.6);
+  background: linear-gradient(180deg, var(--main-bg-start), var(--main-bg-end));
   color: #fff;
 }
 
 .intro-title {
-  color: #FBDEBC;
+  color: var(--header-color);
+}
+
+.headline {
+  color: var(--header-color);
+}
+
+.subheadline {
+  color: var(--subhead-color);
 }
 
 #wizard {
@@ -102,14 +122,16 @@ body {
   appearance: none;
   cursor: pointer;
   color: #fff;
+  border: 1px solid var(--select-border);
+  outline: 1px solid var(--select-border);
   transition: transform .2s, box-shadow .2s, border-color .2s, outline-color .2s;
 }
 
 .branch-select:hover,
 .branch-select:focus {
   transform: scale(1.05);
-  border-color: var(--hover-border);
-  outline: 1px solid var(--hover-border);
+  border-color: var(--select-border);
+  outline: 1px solid var(--active-glow);
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
 
@@ -129,8 +151,8 @@ body {
 .grid div:hover,
 .grid div.active {
   transform: scale(1.02);
-  border-color: var(--hover-border);
-  outline: 1px solid var(--hover-border);
+  border-color: var(--active-glow);
+  outline: 1px solid var(--active-glow);
   box-shadow: 0 0 12px rgba(185,228,227,0.5);
 }
 .grid div:hover::after,
@@ -174,16 +196,12 @@ button:hover {
 /* Call-to-action button with gradient background and shine effect */
 .cta-btn {
   position: relative;
-  background: linear-gradient(135deg, #ffe5d9, #d8e8ff);
-  color: #3d3d3d;
-  background: rgba(255,255,255,0.3);
-  background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+  background: linear-gradient(135deg, var(--cta-start), var(--cta-end));
   color: #3D3D3D;
   border: 1px solid #d4af37;
   border-radius: 50px;
   backdrop-filter: blur(12px);
   overflow: hidden;
-  border-radius: 50px;
 }
 
 .cta-btn::after {
@@ -295,8 +313,8 @@ input[type=checkbox] {
   transition: transform 0.3s;
 }
 .custom-checkbox.checked {
-  background: linear-gradient(135deg, #a8ffc5, #f2fdd7);
-  border-color: #a8ffc5;
+  background: linear-gradient(135deg, var(--checkbox-start), var(--checkbox-end));
+  border-color: var(--checkbox-start);
   transform: scale(1.1);
 }
 .custom-checkbox.checked::after {
@@ -415,6 +433,8 @@ input::placeholder {
   position: relative;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
     opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  -webkit-box-reflect: below 0 linear-gradient(transparent, rgba(255,255,255,0.1));
 }
 .style img {
   display: block;
@@ -430,9 +450,6 @@ input::placeholder {
 .style.disabled {
   opacity: 0.5;
   pointer-events: none;
-}
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  -webkit-box-reflect: below 0 linear-gradient(transparent, rgba(255,255,255,0.1));
 }
 .style:hover,
 .style.active {

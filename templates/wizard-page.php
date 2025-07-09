@@ -34,9 +34,6 @@
       <textarea id="notes" class="glass-control" placeholder="Opisz styl, jaki Ci się podoba"></textarea>
       <input id="nip" class="glass-control" placeholder="NIP firmy">
       <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
-      <textarea id="notes" class="glass-control" placeholder="Opisz styl jaki Ci się podoba"></textarea>
-      <input id="nip" class="glass-control" placeholder="NIP firmy">
-      <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
       <button id="next-1" class="cta-btn">Dalej</button>
     </div>
   </div>
@@ -74,13 +71,6 @@
       <h3 class="subheadline">E-mail do przesłania wyceny</h3>
       <input id="email" class="glass-control" placeholder="Twój email">
       <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
-    <h3 class="subheadline">E-mail do przesłania wyceny</h3>
-    <input id="email" class="glass-control" placeholder="Twój e-mail">
-    <h3>Email do przesłania wyceny</h3>
-    <input id="email" class="glass-control" placeholder="Twój email">
-    <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
-    <input id="email" class="glass-control" placeholder="Twój email">
-    <button id="finish" class="cta-btn" disabled>Prześlij wycenę</button>
   </div>
 </div>
 
