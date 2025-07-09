@@ -92,7 +92,8 @@
     $('.cel').removeClass('active');
     $(this).addClass('active');
     var slug=$(this).data('slug');
-    $('#features-list').empty();
+    $('#features-list .feature-table').empty();
+    $('#features-list .feature-section').hide();
     var groups={funkcja:[],integracja:[],automatyzacja:[]};
     toArray(wizardData.features).forEach(function(f){
       if(!f.assigned || f.assigned.indexOf(slug)!==-1){
@@ -100,19 +101,22 @@
         groups[f.type].push(f);
       }
     });
+    var hasAny=false;
     ['funkcja','integracja','automatyzacja'].forEach(function(type){
       var list=groups[type];
-      if(!list||!list.length) return;
-      $('#features-list').append('<h3>'+type.charAt(0).toUpperCase()+type.slice(1)+'</h3>');
+      var $section = $('#'+type+'-section');
+      if(!list||!list.length){ $section.hide(); return; }
       var table=$('<table class="feat-table"><tbody></tbody></table>');
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
         table.append('<tr><td><label><input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> '+f.title+'</label></td><td>'+desc+'</td></tr>');
       });
       table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
-      $('#features-list').append(table);
+      $section.find('.feature-table').append(table);
+      $section.show();
+      hasAny=true;
     });
-    $('#features-list').fadeIn(200);
+    if(hasAny) $('#features-list').fadeIn(200);
   });
   $('#next-2').click(function(){
     var tel = $('#tel').val().trim();
