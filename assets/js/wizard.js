@@ -224,4 +224,26 @@
       location.reload();
     });
   });
+
+  // phone carousel drag support
+  var $carousel = $('#phone-carousel');
+  if($carousel.length){
+    var dragging = false;
+    var startX = 0;
+    var startScroll = 0;
+    $carousel.on('touchstart mousedown', function(e){
+      dragging = true;
+      startX = e.pageX || e.originalEvent.touches[0].pageX;
+      startScroll = $carousel.scrollLeft();
+    });
+    $carousel.on('touchmove mousemove', function(e){
+      if(!dragging) return;
+      var x = e.pageX || e.originalEvent.touches[0].pageX;
+      $carousel.scrollLeft(startScroll - (x - startX));
+      e.preventDefault();
+    });
+    $(document).on('touchend mouseup touchcancel', function(){
+      dragging = false;
+    });
+  }
 })(jQuery);
