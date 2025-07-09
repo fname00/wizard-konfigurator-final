@@ -64,6 +64,7 @@
   });
   $('#next-1').click(function(){
     if(!$('#rodo').prop('checked')) return alert('Zgoda RODO wymagana');
+    if($('#nip').val().trim()==='') return alert('Podaj NIP firmy');
     save({branza:$('.branża.active').data('slug'), style:styleSel.join(','), notes:$('#notes').val(), nip:$('#nip').val(), rodo:1},function(){
       $('#step-1').fadeOut(200,function(){ $('#step-2').fadeIn(200); setProgress(2); });
     });
