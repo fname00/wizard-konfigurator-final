@@ -52,13 +52,9 @@
     <input type="range" id="budget" min="0" max="50000">
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
-    <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
-    <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
-
     <h3>Email do przesłania wyceny</h3>
-    <input id="email" placeholder="Twój email">    <button id="finish" disabled>Prześlij wycenę</button>
+    <input id="email" placeholder="Twój email">
+    <button id="finish" disabled>Prześlij wycenę</button>
   </div>
 </div>
-
-    <input id="email" placeholder="Twój email">    <button id="finish">Prześlij wycenę</button>  </div></div>
 
