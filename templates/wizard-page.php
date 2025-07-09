@@ -12,7 +12,7 @@
     <h2 class="intro-title">Wybierz branżę dla swojej strony internetowej</h2>
     <p class="intro-desc">Dzięki temu dopasujemy styl i funkcje do Twoich potrzeb</p>
     <div class="grid" id="branze-list">
-      <select id="branch-select" class="branch-select">
+      <select id="branch-select" class="branch-select glass-control">
         <option value="" selected disabled>Wybierz branżę</option>
       </select>
     </div>
@@ -23,6 +23,9 @@
       <textarea id="notes" placeholder="Opisz styl jaki Ci się podoba"></textarea>
       <input id="nip" placeholder="NIP firmy">
       <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
+      <textarea id="notes" class="glass-control" placeholder="Opisz styl jaki Ci się podoba"></textarea>
+      <input id="nip" class="glass-control" placeholder="NIP firmy">
+      <label class="rodo-label"><input type="checkbox" id="rodo"> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
       <button id="next-1">Dalej</button>
     </div>
   </div>
@@ -46,19 +49,19 @@
         <div class="feature-table"></div>
       </div>
     </div>
-    <input id="tel" placeholder="Telefon">
-    <select id="role"><option>Właściciel</option><option>Menedżer</option><option>Pracownik</option></select>
+    <input id="tel" class="glass-control" placeholder="Telefon">
+    <select id="role" class="glass-control"><option>Właściciel</option><option>Menedżer</option><option>Pracownik</option></select>
     <label><input type="checkbox" id="whatsapp"> WhatsApp</label>
     <button id="next-2">Dalej</button>
   </div>
   <div class="step hidden" id="step-3">
     <h2>Dopasuj budżet</h2>
     <div id="current-cost">0 zł</div>
-    <input type="range" id="budget" min="0" max="50000">
+    <input type="range" id="budget" min="0" max="50000" class="glass-control">
     <div id="budget-summary"></div>
     <div id="summary-list"></div>
     <h3>Email do przesłania wyceny</h3>
-    <input id="email" placeholder="Twój email">
+    <input id="email" class="glass-control" placeholder="Twój email">
     <button id="finish" disabled>Prześlij wycenę</button>
   </div>
 </div>
