@@ -1,6 +1,13 @@
 <?php if(!defined('ABSPATH')) exit; ?>
 <div id="wizard">
-  <div id="progress"><div id="progress-bar"></div></div>
+  <div id="progress">
+    <div id="progress-bar"></div>
+    <div id="progress-steps">
+      <span data-step="1">1</span>
+      <span data-step="2">2</span>
+      <span data-step="3">3</span>
+    </div>
+  </div>
   <div class="step" id="step-1">
     <h2>Wybierz branżę</h2>
     <div class="grid" id="branze-list"></div>

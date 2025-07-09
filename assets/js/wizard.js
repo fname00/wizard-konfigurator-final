@@ -12,6 +12,8 @@
   }
   function setProgress(step){
     $('#progress-bar').css('width', ((step-1)/2*100)+'%');
+    $('#progress-steps span').removeClass('active');
+    $('#progress-steps span[data-step="'+step+'"]').addClass('active');
   }
   setProgress(1);
   function save(meta, cb){
