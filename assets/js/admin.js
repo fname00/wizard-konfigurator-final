@@ -24,6 +24,8 @@ jQuery(function($){
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_cele['+idx+'][title]"></td>'+
       '<td><input name="konf_cele['+idx+'][slug]"></td>'+
+      '<td><input name="konf_cele['+idx+'][desc]"></td>'+
+      '<td><input name="konf_cele['+idx+'][badge]"></td>'+
       '<td><a href="#" class="kc_remove_row">&times;</a></td>'+
     '</tr>');
   }

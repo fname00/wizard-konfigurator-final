@@ -265,6 +265,25 @@ body {
 .cel {
   padding: 15px !important;
   border-radius: 50px !important;
+  position: relative;
+}
+
+.cel-badge {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: var(--accent);
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.cel-desc {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.8;
+  margin-top: 4px;
 }
 button {
   position: fixed;
@@ -477,21 +496,27 @@ input::placeholder {
   backdrop-filter: blur(10px);
 }
 
-.feat-table tr:has(input:checked) {
+.feat-table tr.selected {
   background: rgba(255,255,255,0.2);
   border-color: #fff;
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
+.feat-table input[type="checkbox"] { display:none; }
 
 .feature-tag {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .feature-tag img {
   width: 40px;
   height: auto;
+}
+
+.feature-tag.selected {
+  text-shadow: 0 0 6px var(--active-glow);
 }
 
 @media (max-width: 600px) {
