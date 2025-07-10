@@ -131,6 +131,7 @@ body {
   transition: all 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 .grid div::after {
   content: "";
@@ -163,7 +164,6 @@ body {
   transition: transform .2s, box-shadow .2s, border-color .2s, outline-color .2s;
 }
 
-.branch-select:hover,
 .branch-select:focus {
   transform: scale(1.05);
   border-color: var(--select-border);
@@ -184,20 +184,14 @@ body {
   border-radius: 5px;
 }
 
-.grid div:hover,
 .grid div.active {
   transform: scale(1.02);
   border-color: var(--active-glow);
   outline: 1px solid var(--active-glow);
   box-shadow: 0 0 12px rgba(185,228,227,0.5);
 }
-.grid div:hover::after,
 .grid div.active::after {
   opacity: 1;
-}
-
-.grid div:hover::after,
-.grid div.active::after {
   content: "";
   position: absolute;
   top: 0;
@@ -206,6 +200,63 @@ body {
   height: 100%;
   background: rgba(185,228,227,0.05);
   border-radius: 16px;
+}
+
+@media (hover: hover) {
+  .branch-select:hover {
+    transform: scale(1.05);
+    border-color: var(--select-border);
+    outline: 1px solid var(--active-glow);
+    box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  }
+
+  .grid div:hover {
+    transform: scale(1.02);
+    border-color: var(--active-glow);
+    outline: 1px solid var(--active-glow);
+    box-shadow: 0 0 12px rgba(185,228,227,0.5);
+  }
+  .grid div:hover::after {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(185,228,227,0.05);
+    border-radius: 16px;
+  }
+
+  button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .cta-btn:hover::after {
+    left: 150%;
+  }
+
+  .tag:hover {
+    background: #141919;
+    border-color: #fff;
+  }
+
+  .feat-table tr:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+    border-color: #fff;
+  }
+
+  .style:hover {
+    border-color: var(--select-border);
+    outline-color: var(--select-border);
+    box-shadow: 0 0 20px rgba(255,214,230,0.5);
+  }
+
+  .style:hover img {
+    box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
+    border: 1px solid var(--select-border);
+  }
 }
 
 button {
@@ -225,10 +276,6 @@ button {
   backdrop-filter: blur(12px);
   transition: all 0.2s ease-in-out;
 }
-button:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
 /* Call-to-action button with gradient background and shine effect */
 .cta-btn {
   position: relative;
@@ -250,10 +297,6 @@ button:hover {
   background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
   transform: skewX(-20deg);
   transition: left 0.6s;
-}
-
-.cta-btn:hover::after {
-  left: 150%;
 }
 
 @keyframes shine {
@@ -398,10 +441,6 @@ input::placeholder {
   backdrop-filter: blur(10px);
 }
 
-.tag:hover {
-  background: #141919;
-  border-color: #fff;
-}
 .tag.selected {
   background: rgba(255,255,255,0.3);
   color: #000;
@@ -427,12 +466,6 @@ input::placeholder {
   border-radius: 12px;
   transition: transform .2s, box-shadow .2s, border-color .2s;
   backdrop-filter: blur(10px);
-}
-
-.feat-table tr:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
-  border-color: #fff;
 }
 
 .feat-table tr:has(input:checked) {
@@ -479,13 +512,11 @@ input::placeholder {
   opacity: 0.5;
   pointer-events: none;
 }
-.style:hover,
 .style.active {
   border-color: var(--select-border);
   outline-color: var(--select-border);
   box-shadow: 0 0 20px rgba(255,214,230,0.5);
 }
-.style:hover img,
 .style.active img {
   box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
   border: 1px solid var(--select-border);
