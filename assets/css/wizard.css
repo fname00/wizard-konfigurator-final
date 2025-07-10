@@ -602,3 +602,11 @@ input::placeholder {
   box-shadow: 0 0 30px rgba(185, 228, 227, 0.8);
   z-index: -1;
 }
+.feature-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  margin-right: 4px;
+}

@@ -27,7 +27,8 @@
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
         var img = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
-        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+'<input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> <span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
+        var badge=f.badge_text?'<span class="feature-badge" style="background:'+ (f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
+        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+badge+'<input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> <span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
       });
       table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
       $('#features-list').append(table);
