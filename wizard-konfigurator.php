@@ -17,11 +17,13 @@ add_action('admin_init', function() {
     register_setting('kc_group', 'konf_cele');
     register_setting('kc_group', 'konf_style');
     register_setting('kc_group', 'konf_features');
+    register_setting('kc_group', 'konf_style_multiselect');
     add_settings_section('kc_sec', 'Ustawienia Wizard Konfiguratora', null, 'wizard-konfigurator');
     add_settings_field('kc_field_branze', 'Branże', 'kc_render_branze', 'wizard-konfigurator', 'kc_sec');
     add_settings_field('kc_field_cele', 'Cele', 'kc_render_cele', 'wizard-konfigurator', 'kc_sec');
     add_settings_field('kc_field_style', 'Style', 'kc_render_style', 'wizard-konfigurator', 'kc_sec');
     add_settings_field('kc_field_feat', 'Funkcje/Integracje', 'kc_render_features', 'wizard-konfigurator', 'kc_sec');
+    add_settings_field('kc_field_style_multi', 'Wybór stylu', 'kc_render_style_multiselect', 'wizard-konfigurator', 'kc_sec');
 });
 
 // Admin scripts for dynamic fields and media uploader
@@ -120,6 +122,12 @@ function kc_render_features() {
     echo '</tbody></table><p><button id="kc_add_feature" class="button" type="button">Dodaj pozycję</button></p>';
 }
 
+function kc_render_style_multiselect() {
+    $val = get_option('konf_style_multiselect', '1');
+    echo '<label><input type="radio" name="konf_style_multiselect" value="0" '.checked($val, '0', false).'> pojedynczy</label><br>';
+    echo '<label><input type="radio" name="konf_style_multiselect" value="1" '.checked($val, '1', false).'> wielokrotny</label>';
+}
+
 // SETTINGS PAGE
 function kc_settings_page() {
     include plugin_dir_path(__FILE__) . 'admin/settings-page.php';
@@ -143,6 +151,7 @@ register_activation_hook(__FILE__, function() {
     ]);
     if (!is_array(get_option('konf_style'))) update_option('konf_style', []);
     if (!is_array(get_option('konf_features'))) update_option('konf_features', []);
+    if (get_option('konf_style_multiselect') === false) update_option('konf_style_multiselect', '1');
 });
 
 // SHORTCODE & AJAX
@@ -160,7 +169,8 @@ add_action('wp_enqueue_scripts', function() {
         'branże'  => array_values((array) get_option('konf_branze')),
         'cele'    => array_values((array) get_option('konf_cele')),
         'style'   => array_values((array) get_option('konf_style')),
-        'features'=> array_values((array) get_option('konf_features'))
+        'features'=> array_values((array) get_option('konf_features')),
+        'styleMulti' => get_option('konf_style_multiselect', '1')
     ]);
 });
 add_action('wp_ajax_save_wizard_step', 'kc_save_step');

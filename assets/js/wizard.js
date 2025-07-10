@@ -4,7 +4,9 @@
   }
   var postId = 0;
   var styleSel = [];
-  var styleLimit = 5;
+  var allowMulti = wizardData.styleMulti == '1';
+  var styleLimit = allowMulti ? 5 : 1;
+  $('#style-header').text('Wybierz przykłady, które Ci się podobają (max '+styleLimit+')');
   var styleIndex = 0;
   var selectedFeatures = [];
   var selectedGoals = [];
@@ -73,7 +75,9 @@
   }
   var $branchSelect = $('#branch-select');
   var $styleLimitMsg = $('<div id="style-limit-msg" class="hidden">Możesz wybrać maksymalnie '+styleLimit+' stylów</div>');
-  $('.style-carousel').after($styleLimitMsg);
+  if(allowMulti){
+    $('.style-carousel').after($styleLimitMsg);
+  }
 
   function updateStyleCarousel(){
     var $track = $('#style-list');
@@ -136,20 +140,30 @@
       $(this).removeClass('active');
       styleSel = styleSel.filter(function(t){ return t!==title; });
     }else{
-      if(styleSel.length>=styleLimit){
-        $styleLimitMsg.removeClass('hidden');
-        $('.style').not('.active').addClass('disabled');
-        return;
+      if(!allowMulti){
+        $('.style.active').removeClass('active');
+        styleSel = [title];
+      }else{
+        if(styleSel.length>=styleLimit){
+          $styleLimitMsg.removeClass('hidden');
+          $('.style').not('.active').addClass('disabled');
+          return;
+        }
+        styleSel.push(title);
       }
       $(this).addClass('active');
-      styleSel.push(title);
     }
-    if(styleSel.length<styleLimit){
+    if(allowMulti){
+      if(styleSel.length<styleLimit){
+        $('.style').removeClass('disabled');
+        $styleLimitMsg.addClass('hidden');
+      }else{
+        $('.style').not('.active').addClass('disabled');
+        $styleLimitMsg.removeClass('hidden');
+      }
+    }else{
       $('.style').removeClass('disabled');
       $styleLimitMsg.addClass('hidden');
-    }else{
-      $('.style').not('.active').addClass('disabled');
-      $styleLimitMsg.removeClass('hidden');
     }
     if(styleSel.length>=1){
       $('#after-style').fadeIn(200);
