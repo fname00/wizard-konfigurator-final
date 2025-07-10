@@ -31,9 +31,9 @@
         var desc=f.desc||f.description||'';
         var img = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
         var badge=f.badge_text?'<span class="feature-badge" style="background:'+ (f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
-        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+badge+'<input type="checkbox" data-price="'+(f.price||0)+'" value="'+f.title+'"> <span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
+        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+badge+'<span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
       });
-      table.append('<tr><td colspan="2"><label><input type="checkbox" value="inne-'+type+'"> inne, niestandardowe rozwiązania</label></td></tr>');
+      table.append('<tr><td colspan="2"><label class="feature-tag" data-title="inne-'+type+'" data-price="0"><span>inne, niestandardowe rozwiązania</span></label></td></tr>');
       $('#features-list').append(table);
     });
     $('#features-list').fadeIn(200);
@@ -103,7 +103,9 @@
   });
   $branchSelect.val('');
   toArray(wizardData.cele).forEach(function(c){
-    $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+c.title+'</div>');
+    var badge = c.badge ? '<span class="cel-badge">'+c.badge+'</span>' : '';
+    var desc  = c.desc ? '<div class="cel-desc">'+c.desc+'</div>' : '';
+    $('#cele-list').append('<div class="cel" data-slug="'+c.slug+'">'+badge+'<span class="cel-title">'+c.title+'</span>'+desc+'</div>');
   });
   // features will be rendered after selecting a goal
   function loadBranch(slug, title){
@@ -249,9 +251,11 @@
     var price=parseInt($t.data('price'))||0;
     if($t.hasClass('selected')){
       $t.removeClass('selected');
+      $t.closest('tr').removeClass('selected');
       selectedFeatures=selectedFeatures.filter(function(f){return f.title!==title;});
     }else{
       $t.addClass('selected');
+      $t.closest('tr').addClass('selected');
       selectedFeatures.push({title:title,price:price});
     }
   });

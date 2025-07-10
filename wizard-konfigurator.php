@@ -61,11 +61,13 @@ function kc_render_branze() {
 function kc_render_cele() {
     $items = get_option('konf_cele', []);
     if (!is_array($items)) $items = [];
-    echo '<table><thead><tr><th>Tytuł</th><th>Slug</th><th></th></tr></thead><tbody>';
+    echo '<table><thead><tr><th>Tytuł</th><th>Slug</th><th>Opis</th><th>Badge</th><th></th></tr></thead><tbody>';
     foreach ($items as $i => $c) {
         echo "<tr data-index='{$i}'>";
         echo "<td><input name='konf_cele[{$i}][title]' value='" . esc_attr($c['title']) . "'></td>";
         echo "<td><input name='konf_cele[{$i}][slug]'  value='" . esc_attr($c['slug']) . "'></td>";
+        echo "<td><input name='konf_cele[{$i}][desc]' value='" . esc_attr($c['desc']) . "'></td>";
+        echo "<td><input name='konf_cele[{$i}][badge]' value='" . esc_attr($c['badge']) . "'></td>";
         echo "<td><a href='#' class='kc_remove_row'>&times;</a></td>";
         echo "</tr>";
     }
@@ -147,10 +149,10 @@ register_activation_hook(__FILE__, function() {
         ['title'=>'Motoryzacja','slug'=>'motoryzacja','icon'=>'']
     ]);
     update_option('konf_cele', [
-        ['title'=>'Zbieranie leadów','slug'=>'leady'],
-        ['title'=>'Sklep online','slug'=>'sklep'],
-        ['title'=>'Portal płatny','slug'=>'portal'],
-        ['title'=>'Wizerunkowa','slug'=>'wizerunkowa']
+        ['title'=>'Zbieranie leadów','slug'=>'leady','desc'=>'','badge'=>''],
+        ['title'=>'Sklep online','slug'=>'sklep','desc'=>'','badge'=>''],
+        ['title'=>'Portal płatny','slug'=>'portal','desc'=>'','badge'=>''],
+        ['title'=>'Wizerunkowa','slug'=>'wizerunkowa','desc'=>'','badge'=>'']
     ]);
     if (!is_array(get_option('konf_style'))) update_option('konf_style', []);
     if (!is_array(get_option('konf_features'))) update_option('konf_features', []);
