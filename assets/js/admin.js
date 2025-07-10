@@ -54,6 +54,9 @@ jQuery(function($){
     });
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_features['+idx+'][title]"></td>'+
+      '<td><input name="konf_features['+idx+'][desc]"></td>'+
+      '<td><input name="konf_features['+idx+'][badge_text]"></td>'+
+      '<td><input type="color" name="konf_features['+idx+'][badge_color]" value="#ffffff"></td>'+
       '<td><select name="konf_features['+idx+'][type]"><option value="funkcja">Funkcja</option><option value="automatyzacja">Automatyzacja</option><option value="integracja">Integracja</option></select></td>'+
       '<td><input name="konf_features['+idx+'][price]" placeholder="2000"></td>'+
       '<td>'+cele+'</td>'+
