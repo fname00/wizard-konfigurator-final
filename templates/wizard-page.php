@@ -26,7 +26,11 @@
         <option value="" selected disabled>Wybierz branżę</option>
       </select>
     </div>
-    <div class="grid" id="style-list"></div>
+    <div class="style-carousel">
+      <button type="button" class="carousel-arrow carousel-prev">&#10094;</button>
+      <div id="style-list" class="carousel-track"></div>
+      <button type="button" class="carousel-arrow carousel-next">&#10095;</button>
+    </div>
     <h3 id="style-header" class="subheadline" style="display:none">Wybierz przykłady, które Ci się podobają (max 5)</h3>
     <div id="after-style">
       <label class="rodo-label"><input type="checkbox" id="rodo"><span class="custom-checkbox"></span> Zgoda na przetwarzanie danych zgodnie z naszą <a href="/polityka-prywatnosci" target="_blank">polityką prywatności</a></label>
