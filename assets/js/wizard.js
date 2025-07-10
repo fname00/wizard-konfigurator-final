@@ -83,6 +83,25 @@
   }
 
   function updateStyleCarousel(){
+      var $track = $('#style-list');
+      var $items = $track.children('.style');
+      var count = $items.length;
+      if(!count) return;
+
+      styleIndex = (styleIndex + count) % count;
+
+      var prevIndex = (styleIndex - 1 + count) % count;
+      var nextIndex = (styleIndex + 1) % count;
+
+      var offset = -((styleIndex - 1) * 33.3333);
+      $track.css('transform', 'translateX(' + offset + '%)');
+
+      $items.removeClass('center side-left side-right');
+      $items.eq(prevIndex).addClass('side-left');
+      $items.eq(styleIndex).addClass('center');
+      $items.eq(nextIndex).addClass('side-right');
+
+      $('.carousel-arrow').toggle(count>3);
     var $track = $('#style-list');
     var $items = $track.children('.style');
     var count = $items.length;
@@ -177,6 +196,19 @@
   });
 
   $('.carousel-next').on('click', function(){
+      var count = $('#style-list .style').length;
+      if(count){
+        styleIndex = (styleIndex + 1) % count;
+        updateStyleCarousel();
+      }
+    });
+    $('.carousel-prev').on('click', function(){
+      var count = $('#style-list .style').length;
+      if(count){
+        styleIndex = (styleIndex - 1 + count) % count;
+        updateStyleCarousel();
+      }
+    });
     var count = $('#style-list .style').length;
     if(!count) return;
     styleIndex = (styleIndex + 1) % count;
@@ -206,6 +238,17 @@
     if(isSwiping) e.preventDefault();
   });
   $('#style-list').on('touchend', function(e){
+      if(touchStartX === undefined) return;
+      var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
+      var count = $('#style-list .style').length;
+      if(isSwiping && Math.abs(dx) > 50 && count){
+        if(dx < 0){
+          styleIndex = (styleIndex + 1) % count;
+          updateStyleCarousel();
+        } else if(dx > 0){
+          styleIndex = (styleIndex - 1 + count) % count;
+          updateStyleCarousel();
+        }
     if(touchStartX === undefined) return;
     var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
     var count = $('#style-list .style').length;
@@ -217,10 +260,9 @@
         styleIndex = (styleIndex - 1 + count) % count;
         updateStyleCarousel();
       }
-    }
-    touchStartX = touchStartY = undefined;
-    isSwiping = false;
-  });
+      touchStartX = touchStartY = undefined;
+      isSwiping = false;
+    });
 
   $('#rodo').on('change', function(){
     $(this).next('.custom-checkbox').toggleClass('checked', this.checked);
