@@ -104,11 +104,13 @@ function kc_render_features() {
     if (!is_array($items)) $items = [];
     $cele  = get_option('konf_cele', []);
     if (!is_array($cele)) $cele = [];
-    echo '<table><thead><tr><th>Tytuł</th><th>Opis</th><th>Badge</th><th>Kolor</th><th>Typ</th><th>Cena</th><th>Przypisane cele</th><th></th></tr></thead><tbody>';
+    echo '<table><thead><tr><th>Tytuł</th><th>Opis</th><th>Ikona</th><th>Badge</th><th>Kolor</th><th>Typ</th><th>Cena</th><th>Przypisane cele</th><th></th></tr></thead><tbody>';
     foreach ($items as $i => $f) {
         echo "<tr data-index='{$i}'>";
         echo "<td><input name='konf_features[{$i}][title]' value='" . esc_attr($f['title']) . "'></td>";
         echo "<td><input name='konf_features[{$i}][desc]' value='" . esc_attr($f['desc']) . "'></td>";
+        echo '<td><button class="kc_upload button" data-target="kc_f_'.$i.'_icon">Wybierz</button>'
+           . '<input type="hidden" id="kc_f_'.$i.'_icon" name="konf_features['.$i.'][icon]" value="'.esc_attr($f['icon']).'"></td>';
         echo "<td><input name='konf_features[{$i}][badge_text]' value='" . esc_attr($f['badge_text']) . "'></td>";
         echo "<td><input type='color' name='konf_features[{$i}][badge_color]' value='" . esc_attr($f['badge_color']) . "'></td>";
         echo '<td><select name="konf_features['.$i.'][type]">'
