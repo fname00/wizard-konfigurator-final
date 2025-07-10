@@ -57,6 +57,8 @@ jQuery(function($){
     t.append('<tr data-index="'+idx+'">'+
       '<td><input name="konf_features['+idx+'][title]"></td>'+
       '<td><input name="konf_features['+idx+'][desc]"></td>'+
+      '<td><button class="kc_upload button" data-target="kc_f_'+idx+'_icon">Wybierz</button>'+
+      '<input type="hidden" id="kc_f_'+idx+'_icon" name="konf_features['+idx+'][icon]" value=""></td>'+
       '<td><input name="konf_features['+idx+'][badge_text]"></td>'+
       '<td><input type="color" name="konf_features['+idx+'][badge_color]" value="#ffffff"></td>'+
       '<td><select name="konf_features['+idx+'][type]"><option value="funkcja">Funkcja</option><option value="automatyzacja">Automatyzacja</option><option value="integracja">Integracja</option></select></td>'+

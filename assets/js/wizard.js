@@ -29,11 +29,12 @@
       var table=$('<table class="feat-table"><tbody></tbody></table>');
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
-        var img = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
-        var badge=f.badge_text?'<span class="feature-badge" style="background:'+ (f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
-        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+badge+'<span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
+        var img  = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
+        var badge=f.badge_text?'<span class="feature-badge" style="background:'+(f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
+        var label='<label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+'<div class="feature-text"><span class="feature-title">'+f.title+'</span><span class="feature-desc">'+desc+'</span></div>'+badge+'</label>';
+        table.append('<tr><td>'+label+'</td></tr>');
       });
-      table.append('<tr><td colspan="2"><label class="feature-tag" data-title="inne-'+type+'" data-price="0"><span>inne, niestandardowe rozwiązania</span></label></td></tr>');
+      table.append('<tr><td><label class="feature-tag" data-title="inne-'+type+'" data-price="0"><div class="feature-text"><span class="feature-title">inne, niestandardowe rozwiązania</span></div></label></td></tr>');
       $('#features-list').append(table);
     });
     $('#features-list').fadeIn(200);
@@ -101,6 +102,18 @@
       $items.eq(nextIndex).addClass('side-right');
 
       $('.carousel-arrow').toggle(count>3);
+    var $track = $('#style-list');
+    var $items = $track.children('.style');
+    var count = $items.length;
+    if(!count) return;
+    styleIndex = (styleIndex % count + count) % count;
+    var offset = styleIndex > 0 ? -(styleIndex * 33.3333) : 0;
+    $track.css('transform', 'translateX(' + offset + '%)');
+    $items.removeClass('center side-left side-right');
+    if(styleIndex > 0) $items.eq(styleIndex - 1).addClass('side-left');
+    $items.eq(styleIndex).addClass('center');
+    if(styleIndex < count - 1) $items.eq(styleIndex + 1).addClass('side-right');
+    $('.carousel-arrow').toggle(count>1);
   }
   $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
@@ -196,6 +209,17 @@
         updateStyleCarousel();
       }
     });
+    var count = $('#style-list .style').length;
+    if(!count) return;
+    styleIndex = (styleIndex + 1) % count;
+    updateStyleCarousel();
+  });
+  $('.carousel-prev').on('click', function(){
+    var count = $('#style-list .style').length;
+    if(!count) return;
+    styleIndex = (styleIndex - 1 + count) % count;
+    updateStyleCarousel();
+  });
 
   $('#style-list').on('touchstart', function(e){
     var t = e.originalEvent.touches[0];
@@ -225,6 +249,16 @@
           styleIndex = (styleIndex - 1 + count) % count;
           updateStyleCarousel();
         }
+    if(touchStartX === undefined) return;
+    var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
+    var count = $('#style-list .style').length;
+    if(isSwiping && Math.abs(dx) > 50){
+      if(dx < 0){
+        styleIndex = (styleIndex + 1) % count;
+        updateStyleCarousel();
+      }else if(dx > 0){
+        styleIndex = (styleIndex - 1 + count) % count;
+        updateStyleCarousel();
       }
       touchStartX = touchStartY = undefined;
       isSwiping = false;
