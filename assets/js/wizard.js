@@ -29,11 +29,12 @@
       var table=$('<table class="feat-table"><tbody></tbody></table>');
       list.forEach(function(f){
         var desc=f.desc||f.description||'';
-        var img = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
-        var badge=f.badge_text?'<span class="feature-badge" style="background:'+ (f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
-        table.append('<tr><td><label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+badge+'<span>'+f.title+'</span></label></td><td>'+desc+'</td></tr>');
+        var img  = f.icon ? '<img src="'+f.icon+'" alt="">' : '';
+        var badge=f.badge_text?'<span class="feature-badge" style="background:'+(f.badge_color||'#ccc')+'">'+f.badge_text+'</span>':'';
+        var label='<label class="feature-tag" data-title="'+f.title+'" data-price="'+(f.price||0)+'">'+img+'<div class="feature-text"><span class="feature-title">'+f.title+'</span><span class="feature-desc">'+desc+'</span></div>'+badge+'</label>';
+        table.append('<tr><td>'+label+'</td></tr>');
       });
-      table.append('<tr><td colspan="2"><label class="feature-tag" data-title="inne-'+type+'" data-price="0"><span>inne, niestandardowe rozwiązania</span></label></td></tr>');
+      table.append('<tr><td><label class="feature-tag" data-title="inne-'+type+'" data-price="0"><div class="feature-text"><span class="feature-title">inne, niestandardowe rozwiązania</span></div></label></td></tr>');
       $('#features-list').append(table);
     });
     $('#features-list').fadeIn(200);
