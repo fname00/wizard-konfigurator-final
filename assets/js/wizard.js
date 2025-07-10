@@ -5,6 +5,7 @@
   var postId = 0;
   var styleSel = [];
   var styleLimit = 5;
+  var styleIndex = 0;
   var selectedFeatures = [];
   var selectedGoals = [];
 
@@ -58,6 +59,7 @@
   }
   setProgress(1);
   $('#next-1').hide();
+  $('.style-carousel').hide();
   function save(meta, cb){
     $.post(wizardData.ajaxurl, {
       action: 'save_wizard_step',
@@ -71,7 +73,24 @@
   }
   var $branchSelect = $('#branch-select');
   var $styleLimitMsg = $('<div id="style-limit-msg" class="hidden">Możesz wybrać maksymalnie '+styleLimit+' stylów</div>');
-  $('#style-list').after($styleLimitMsg);
+  $('.style-carousel').after($styleLimitMsg);
+
+  function updateStyleCarousel(){
+    var $track = $('#style-list');
+    var $items = $track.children('.style');
+    var maxIndex = Math.max(0, $items.length - 3);
+    styleIndex = Math.min(styleIndex, maxIndex);
+    styleIndex = Math.max(0, styleIndex);
+    var offset = -(styleIndex * 33.3333);
+    $track.css('transform', 'translateX(' + offset + '%)');
+    $items.removeClass('center side-left side-right');
+    $items.eq(styleIndex).addClass('side-left');
+    $items.eq(styleIndex + 1).addClass('center');
+    $items.eq(styleIndex + 2).addClass('side-right');
+    $('.carousel-prev').prop('disabled', styleIndex===0);
+    $('.carousel-next').prop('disabled', styleIndex>=maxIndex);
+    $('.carousel-arrow').toggle($items.length>3);
+  }
   $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
     $branchSelect.append('<option value="'+b.slug+'">'+b.title+'</option>');
@@ -97,6 +116,9 @@
     $('.style').removeClass('disabled');
     $styleLimitMsg.addClass('hidden');
     $('#next-1').prop('disabled', true).hide();
+    styleIndex = 0;
+    updateStyleCarousel();
+    $('.style-carousel').fadeIn(200);
     updateNext1();
   }
 
@@ -135,6 +157,20 @@
       $('#after-style').hide();
     }
     updateNext1();
+  });
+
+  $('.carousel-next').on('click', function(){
+    var count = $('#style-list .style').length;
+    if(styleIndex < count - 3){
+      styleIndex++;
+      updateStyleCarousel();
+    }
+  });
+  $('.carousel-prev').on('click', function(){
+    if(styleIndex > 0){
+      styleIndex--;
+      updateStyleCarousel();
+    }
   });
 
   $('#rodo').on('change', function(){
