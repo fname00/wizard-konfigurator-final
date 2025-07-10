@@ -6,6 +6,7 @@
   var styleSel = [];
   var styleLimit = 5;
   var styleIndex = 0;
+  var touchStartX, touchStartY, isSwiping = false;
   var selectedFeatures = [];
   var selectedGoals = [];
 
@@ -171,6 +172,39 @@
       styleIndex--;
       updateStyleCarousel();
     }
+  });
+
+  $('#style-list').on('touchstart', function(e){
+    var t = e.originalEvent.touches[0];
+    touchStartX = t.clientX;
+    touchStartY = t.clientY;
+    isSwiping = false;
+  });
+  $('#style-list').on('touchmove', function(e){
+    if(touchStartX === undefined) return;
+    var t = e.originalEvent.touches[0];
+    var dx = t.clientX - touchStartX;
+    var dy = t.clientY - touchStartY;
+    if(!isSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10){
+      isSwiping = true;
+    }
+    if(isSwiping) e.preventDefault();
+  });
+  $('#style-list').on('touchend', function(e){
+    if(touchStartX === undefined) return;
+    var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
+    var count = $('#style-list .style').length;
+    if(isSwiping && Math.abs(dx) > 50){
+      if(dx < 0 && styleIndex < count - 3){
+        styleIndex++;
+        updateStyleCarousel();
+      }else if(dx > 0 && styleIndex > 0){
+        styleIndex--;
+        updateStyleCarousel();
+      }
+    }
+    touchStartX = touchStartY = undefined;
+    isSwiping = false;
   });
 
   $('#rodo').on('change', function(){
