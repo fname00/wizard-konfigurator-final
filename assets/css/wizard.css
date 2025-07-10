@@ -530,6 +530,22 @@ input::placeholder {
   box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
   border: 1px solid var(--select-border);
 }
+.style.active::after {
+  content: "\2713";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: var(--cta-text);
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
 .style.disabled { opacity: 0.5; pointer-events: none; }
 #style-limit-msg {
   color: var(--accent);
