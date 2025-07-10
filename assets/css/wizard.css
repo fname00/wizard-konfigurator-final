@@ -571,6 +571,7 @@ input::placeholder {
   overflow: hidden;
   width: 80%;
   transition: transform 0.4s ease;
+  perspective: 1000px;
 }
 
 #style-list .style {
@@ -584,14 +585,14 @@ input::placeholder {
 }
 
 #style-list .style.center {
-  transform: scale(1.2);
+  transform: translateZ(30px) scale(1.2);
   opacity: 1;
-  z-index: 1;
+  z-index: 2;
 }
 
 #style-list .style.side-left,
 #style-list .style.side-right {
-  transform: scale(0.9);
+  transform: translateZ(-40px) scale(0.9);
 }
 
 #style-list .style.active::before {
