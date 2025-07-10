@@ -504,8 +504,9 @@ input::placeholder {
 .feat-table input[type="checkbox"] { display:none; }
 
 .feature-tag {
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   cursor: pointer;
 }
@@ -513,6 +514,20 @@ input::placeholder {
 .feature-tag img {
   width: 40px;
   height: auto;
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  font-weight: 600;
+}
+
+.feature-desc {
+  font-size: 0.85em;
+  opacity: 0.8;
 }
 
 .feature-tag.selected {
@@ -645,10 +660,12 @@ input::placeholder {
   z-index: -1;
 }
 .feature-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
   display: inline-block;
   padding: 2px 6px;
   border-radius: 4px;
   color: #fff;
   font-size: 12px;
-  margin-right: 4px;
 }
