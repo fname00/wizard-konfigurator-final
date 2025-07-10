@@ -592,15 +592,21 @@ input::placeholder {
   justify-content: center;
   gap: 10px;
   margin: 20px 0;
+  position: relative;
 }
 
 .carousel-arrow {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--header-color);
+  color: #fff;
   font-size: 32px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
+.carousel-prev { left: 0; }
+.carousel-next { right: 0; }
 
 .carousel-arrow:disabled {
   opacity: 0.3;

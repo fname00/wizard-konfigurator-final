@@ -82,20 +82,25 @@
   }
 
   function updateStyleCarousel(){
-    var $track = $('#style-list');
-    var $items = $track.children('.style');
-    var maxIndex = Math.max(0, $items.length - 3);
-    styleIndex = Math.min(styleIndex, maxIndex);
-    styleIndex = Math.max(0, styleIndex);
-    var offset = -(styleIndex * 33.3333);
-    $track.css('transform', 'translateX(' + offset + '%)');
-    $items.removeClass('center side-left side-right');
-    $items.eq(styleIndex).addClass('side-left');
-    $items.eq(styleIndex + 1).addClass('center');
-    $items.eq(styleIndex + 2).addClass('side-right');
-    $('.carousel-prev').prop('disabled', styleIndex===0);
-    $('.carousel-next').prop('disabled', styleIndex>=maxIndex);
-    $('.carousel-arrow').toggle($items.length>3);
+      var $track = $('#style-list');
+      var $items = $track.children('.style');
+      var count = $items.length;
+      if(!count) return;
+
+      styleIndex = (styleIndex + count) % count;
+
+      var prevIndex = (styleIndex - 1 + count) % count;
+      var nextIndex = (styleIndex + 1) % count;
+
+      var offset = -((styleIndex - 1) * 33.3333);
+      $track.css('transform', 'translateX(' + offset + '%)');
+
+      $items.removeClass('center side-left side-right');
+      $items.eq(prevIndex).addClass('side-left');
+      $items.eq(styleIndex).addClass('center');
+      $items.eq(nextIndex).addClass('side-right');
+
+      $('.carousel-arrow').toggle(count>3);
   }
   $branchSelect.empty().append('<option value="" selected disabled>Wybierz branżę</option>');
   toArray(wizardData['branże']).forEach(function(b){
@@ -178,18 +183,19 @@
   });
 
   $('.carousel-next').on('click', function(){
-    var count = $('#style-list .style').length;
-    if(styleIndex < count - 3){
-      styleIndex++;
-      updateStyleCarousel();
-    }
-  });
-  $('.carousel-prev').on('click', function(){
-    if(styleIndex > 0){
-      styleIndex--;
-      updateStyleCarousel();
-    }
-  });
+      var count = $('#style-list .style').length;
+      if(count){
+        styleIndex = (styleIndex + 1) % count;
+        updateStyleCarousel();
+      }
+    });
+    $('.carousel-prev').on('click', function(){
+      var count = $('#style-list .style').length;
+      if(count){
+        styleIndex = (styleIndex - 1 + count) % count;
+        updateStyleCarousel();
+      }
+    });
 
   $('#style-list').on('touchstart', function(e){
     var t = e.originalEvent.touches[0];
@@ -208,21 +214,21 @@
     if(isSwiping) e.preventDefault();
   });
   $('#style-list').on('touchend', function(e){
-    if(touchStartX === undefined) return;
-    var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
-    var count = $('#style-list .style').length;
-    if(isSwiping && Math.abs(dx) > 50){
-      if(dx < 0 && styleIndex < count - 3){
-        styleIndex++;
-        updateStyleCarousel();
-      }else if(dx > 0 && styleIndex > 0){
-        styleIndex--;
-        updateStyleCarousel();
+      if(touchStartX === undefined) return;
+      var dx = (e.originalEvent.changedTouches[0] || {}).clientX - touchStartX;
+      var count = $('#style-list .style').length;
+      if(isSwiping && Math.abs(dx) > 50 && count){
+        if(dx < 0){
+          styleIndex = (styleIndex + 1) % count;
+          updateStyleCarousel();
+        } else if(dx > 0){
+          styleIndex = (styleIndex - 1 + count) % count;
+          updateStyleCarousel();
+        }
       }
-    }
-    touchStartX = touchStartY = undefined;
-    isSwiping = false;
-  });
+      touchStartX = touchStartY = undefined;
+      isSwiping = false;
+    });
 
   $('#rodo').on('change', function(){
     $(this).next('.custom-checkbox').toggleClass('checked', this.checked);
