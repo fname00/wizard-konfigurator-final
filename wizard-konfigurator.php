@@ -13,15 +13,17 @@ function kc_sanitize_array($input) {
         return [];
     }
 
+    $out = [];
     foreach ($input as $k => $v) {
         if (is_array($v)) {
-            $input[$k] = kc_sanitize_array($v);
+            $out[$k] = kc_sanitize_array($v);
         } else {
-            $input[$k] = sanitize_text_field($v);
+            $out[$k] = sanitize_text_field($v);
         }
     }
 
-    return $input;
+    // Force numeric indexing to avoid sparse arrays breaking in options API
+    return array_values($out);
 }
 
 // ADMIN MENU & SETTINGS
