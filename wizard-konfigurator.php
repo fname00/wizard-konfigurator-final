@@ -8,15 +8,31 @@ Author: ChatGPT
 
 if (!defined('ABSPATH')) exit;
 
+function kc_sanitize_array($input) {
+    if (!is_array($input)) {
+        return [];
+    }
+
+    foreach ($input as $k => $v) {
+        if (is_array($v)) {
+            $input[$k] = kc_sanitize_array($v);
+        } else {
+            $input[$k] = sanitize_text_field($v);
+        }
+    }
+
+    return $input;
+}
+
 // ADMIN MENU & SETTINGS
 add_action('admin_menu', function() {
     add_menu_page('Konfigurator', 'Konfigurator', 'manage_options', 'wizard-konfigurator', 'kc_settings_page', 'dashicons-screenoptions', 61);
 });
 add_action('admin_init', function() {
-    register_setting('kc_group', 'konf_branze');
-    register_setting('kc_group', 'konf_cele');
-    register_setting('kc_group', 'konf_style');
-    register_setting('kc_group', 'konf_features');
+    register_setting('kc_group', 'konf_branze', ['type' => 'array', 'sanitize_callback' => 'kc_sanitize_array']);
+    register_setting('kc_group', 'konf_cele', ['type' => 'array', 'sanitize_callback' => 'kc_sanitize_array']);
+    register_setting('kc_group', 'konf_style', ['type' => 'array', 'sanitize_callback' => 'kc_sanitize_array']);
+    register_setting('kc_group', 'konf_features', ['type' => 'array', 'sanitize_callback' => 'kc_sanitize_array']);
     register_setting('kc_group', 'konf_style_multiselect');
     add_settings_section('kc_sec', 'Ustawienia Wizard Konfiguratora', null, 'wizard-konfigurator');
     add_settings_field('kc_field_branze', 'Branże', 'kc_render_branze', 'wizard-konfigurator', 'kc_sec');
