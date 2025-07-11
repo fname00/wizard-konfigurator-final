@@ -252,14 +252,12 @@ body {
   }
 
   .style:hover {
-    border-color: var(--select-border);
-    outline-color: var(--select-border);
-    box-shadow: 0 0 20px rgba(255,214,230,0.5);
+    /* highlight effects removed */
   }
 
   .style:hover img {
-    box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
-    border: 1px solid var(--select-border);
+    box-shadow: none;
+    border: none;
   }
 }
 .cel {
@@ -554,21 +552,21 @@ input::placeholder {
   transition: opacity 0.2s ease-in-out;
 }
 .style.active {
-  border: 1px solid var(--select-border);
-  box-shadow: 0 0 16px rgba(251, 222, 188, 0.8);
+  border: none;
+  box-shadow: none;
 }
 .style.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 .style.active {
-  border-color: var(--select-border);
-  outline-color: var(--select-border);
-  box-shadow: 0 0 20px rgba(255,214,230,0.5);
+  border-color: transparent;
+  outline-color: transparent;
+  box-shadow: none;
 }
 .style.active img {
-  box-shadow: 0 0 20px rgba(255, 214, 230, 0.8);
-  border: 1px solid var(--select-border);
+  box-shadow: none;
+  border: none;
 }
 .style.active::after {
   content: "\2713";
